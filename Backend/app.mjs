@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { RoutesFinance } from './Routes/Finance.mjs';
+import { RoutesUsers } from './Routes/User.mjs';
 
 dotenv.config();
 const app = express();

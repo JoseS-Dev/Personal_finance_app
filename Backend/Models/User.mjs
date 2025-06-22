@@ -23,8 +23,10 @@ export class ModelsUser {
                     `INSERT INTO register_user (name_user, lastName_user, email_user, password_user) VALUES (?, ?, ?, ?)`,
                     [name_user, lastName_user, email_user, hashedPassword]
                 );
-                if (newUser.affectedRows <= 0) return { message: "Error al registrar el usuario." };
-                return newUser[0];
+                if (newUser.affectedRows > 0){
+                    console.log("Usuario registrado correctamente.");
+                    return newUser[0];
+                }
             }
         }
     }
@@ -40,16 +42,33 @@ export class ModelsUser {
             );
 
             if(existingUser.length > 0){
+                console.log("Usuario encontrado, verificando contraseña...");
                 const userData = existingUser[0];
                 // Se verifica si la contraseña es correcta
                 const isPasswordValid = await bcrypt.compare(password_user, userData.password_user);
                 if(isPasswordValid){
                     // Si la constraseña es correcta, se retorna el usuario sin la contraseña
                     const { password_user, ...userWithoutPassword } = userData;
-                    await connection.query(
-                        `INSERT INTO login_user (id_user,is_active) VALUES (?,?)`,
-                        [userWithoutPassword.id_user, 1]
-                    )
+                    // Se verifica si ya existe el usuario en la tabla de login_users
+                    const [existingLoginUser] = await connection.query(
+                        `SELECT * FROM login_users WHERE id_user = ?`,
+                        [userData.id_user]
+                    );
+                    if(existingLoginUser.length > 0){
+                        // Si ya existe, se actualiza el estado del usuario a activo
+                        const [updateUser] = await connection.query(
+                            `UPDATE login_users SET is_active = ? WHERE id_user = ?`,
+                            [1, userData.id_user]
+                        );
+                        if(updateUser.affectedRows <= 0) return { message: "Error al iniciar sesión." };
+                    } else {
+                        // Si no existe, se inserta el usuario en la tabla de login_users
+                        const [insertUser] = await connection.query(
+                            `INSERT INTO login_users (id_user, is_active) VALUES (?, ?)`,
+                            [userData.id_user, 1]
+                        );
+                        if(insertUser.affectedRows <= 0) return { message: "Error al iniciar sesión." };
+                    }
                     return userWithoutPassword;
                 }
             }
@@ -68,7 +87,7 @@ export class ModelsUser {
             const userData = existingUser[0];
             // Se actualiza el estado del usuario a inactivo
             const [LogoutUser] = await connection.query(
-                `UPDATE login_user SET is_active = ? WHERE id_user = ?`,
+                `UPDATE login_users SET is_active = ? WHERE id_user = ?`,
                 [0, userData.id_user]
             )
             if(LogoutUser.affectedRows <= 0) return { message: "Error al desloguear el usuario." };

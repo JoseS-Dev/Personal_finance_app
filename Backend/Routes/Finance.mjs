@@ -8,4 +8,3 @@ export const RoutesFinance = router;
 
 // GET
 // Obtener todas las finanzas
-RoutesFinance.get('/', )

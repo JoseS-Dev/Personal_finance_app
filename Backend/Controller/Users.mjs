@@ -6,4 +6,61 @@ export class ControllerUsers {
         this.ModelsUser = ModelsUser;
     }
     
+    // Registrar un nuevo usuario
+    registerUser = async (req, res) => {
+        try{
+            const result = validateUser(req.body);
+            if (!result.success) {
+                return res.status(400).json({ error: result.error.errors });
+            }
+            const user = await this.ModelsUser.registerUser({ user: result.data});
+            return res.status(201).json({
+                message: "Usuario registrado correctamente",
+                data: user,
+            })
+        }
+        catch(error){
+            console.error("Error al registrar el usuario:", error);
+            return res.status(500).json({ message: "Error al registrar el usuario." });
+        }
+    }
+
+    // Iniciar sesión de un usuario
+    LoginUser = async( req, res) => {
+        try{
+            const result = validateLogin(req.body);
+            if (!result.success) {
+                return res.status(400).json({ error: result.error.errors });
+            }
+            const user = await this.ModelsUser.LoginUser({ user: result.data });
+            if(!user) return res.status(401).json({ message: "Correo electrónico o contraseña incorrectos." });
+            return res.cookie("AccessToken", Auth(user), {
+                httpOnly: true
+            }).status(200).json({
+                message: "Usuario logueado correctamente",
+                data: user,
+                token: Auth(user)
+            });
+        }
+        catch(error){
+            console.error("Error al iniciar sesión:", error);
+            return res.status(500).json({ message: "Error al iniciar sesión." });
+        }
+    }
+
+    // Cerrar Sesión un usuario
+    LogoutUser = async (req, res) => {
+        try{;
+            const user = await this.ModelsUser.LogoutUser({ user: req.body });
+            return res.clearCookie("AccessToken").status(200).json({
+                message: "Usuario deslogueado correctamente",
+                userLogoutOut: user
+            });
+        }
+        catch(error){
+            console.error("Error al cerrar sesión:", error);
+            return res.status(500).json({ message: "Error al cerrar sesión." });
+        }
+    }
+
 }

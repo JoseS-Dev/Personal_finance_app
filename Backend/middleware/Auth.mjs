@@ -1,4 +1,4 @@
-import {jwt} from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 // Funcion para dar el token de acceso al usuario
 export function Auth(user){

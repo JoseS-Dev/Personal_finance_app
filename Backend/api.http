@@ -1,0 +1,31 @@
+### Register a new user
+POST http://localhost:5000/Users
+Content-Type: application/json
+
+{
+    "name_user": "José",
+    "lastName_user": "Santana",
+    "email_user": "joseasantana05@gmail.com",
+    "password_user": "JSa06..."
+}
+
+### Login a user
+POST http://localhost:5000/Users/login
+Content-Type: application/json
+
+{
+    "email_user": "joseasantana05@gmail.com",
+    "password_user": "JSa06..."
+}
+
+### Close a user session
+POST http://localhost:5000/Users/logout
+Content-Type: application/json
+
+{
+    "email_user": "joseasantana05@gmail.com",
+    "password_user": "JSa06..."
+}
+
+###  verify authentication
+GET http://localhost:5000/Users/Auth

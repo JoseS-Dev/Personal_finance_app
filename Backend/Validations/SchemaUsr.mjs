@@ -17,7 +17,7 @@ export const SchemaUser = zod.object({
     password_user: zod.string({
         required_error: "La contraseña del usuario es requerida",
         invalid_type_error: "La contraseña del usuario debe ser una cadena de texto"
-    }).min(11, "La contraseña del usuario debe tener al menos 11 caracteres")
+    }).max(11, "La contraseña del usuario debe tener al menos 11 caracteres")
 })
 
 export const SchemaLogin = zod.object({
@@ -29,7 +29,7 @@ export const SchemaLogin = zod.object({
     password_user: zod.string({
         required_error: "La contraseña del usuario es requerida",
         invalid_type_error: "La contraseña del usuario debe ser una cadena de texto"
-    }).min(11, "La contraseña del usuario debe tener al menos 11 caracteres")
+    }).max(11, "La contraseña del usuario debe tener al menos 11 caracteres")
 })
 
 // Function to validate the user schema

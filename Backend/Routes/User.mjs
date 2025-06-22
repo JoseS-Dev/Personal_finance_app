@@ -1,10 +1,18 @@
 import { Router } from "express";
-import { ControllerFinance } from "../Controller/Finance.mjs";
-import { ModelsFinance } from "../Models/Finance.mjs";
+import { ControllerUsers } from "../Controller/Users.mjs";
+import { ModelsUser } from "../Models/User.mjs";
+import { authMiddleware } from "../middleware/Auth.mjs";
 
 const router = Router();
-const controllerFinance = new ControllerFinance({ ModelsFinance: ModelsFinance });
+const controllerusers = new ControllerUsers({ ModelsUser: ModelsUser });
 export const RoutesUsers = router;
 
 // GET
-RoutesUsers.post('/', )
+// Registrar un nuevo usuario
+RoutesUsers.post('/', controllerusers.registerUser);
+// Login de un usuario
+RoutesUsers.post('/Login', controllerusers.LoginUser);
+// Logout de un usuario
+RoutesUsers.post('/Logout', controllerusers.LogoutUser);
+// Verficar si el usuario esta autenticado
+RoutesUsers.get('/Auth', authMiddleware, controllerusers.getVerifyUser);
