@@ -1,5 +1,7 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+    import SectionRegister from '../components/SectionRegister.vue';
+</script>
 
 <template>
-    <h1> Register Page</h1>
+    <SectionRegister/>
 </template>
