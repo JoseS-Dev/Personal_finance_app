@@ -6,7 +6,7 @@ CREATE TABLE register_user(
     password_user VARCHAR(255) NOT NULL,
 );
 
-CREATE TABLE Login_user(
+CREATE TABLE login_users(
     id_login INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT FALSE,
