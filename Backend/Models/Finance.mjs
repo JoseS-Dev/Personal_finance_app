@@ -7,23 +7,15 @@ export class ModelsFinance {
             console.log("Finanzas obtenidas correctamente");
             return Finances;
         }
-        else{
-            console.log("No se encontraron finanzas");
-            return [];
-        }
     }
 
     // Obtener las finanzas de un usuario
-    static async getByUserID({id_user}){
+    static async getByUserID({ id_user }){
         if(!id_user) return { error: "ID de usuario no proporcionado" };
         const [ Finances ] = await connection.query("SELECT * FROM register_finance WHERE id_user = ?", [id_user]);
         if(Finances.length > 0){
             console.log("Finanzas obtenidas correctamente");
             return Finances;
-        }
-        else{
-            console.log("No se encontraron finanzas para el usuario con ID:", id_user);
-            return [];
         }
     }
 
@@ -35,10 +27,6 @@ export class ModelsFinance {
             console.log("Finanzas obtenidas correctamente");
             return Finances;
         }
-        else{
-            console.log("No se encontraron finanzas con la cantidad:", amount_user);
-            return [];
-        }
     }
 
     // Obtener las finanzas por el tipo de finanza
@@ -49,10 +37,6 @@ export class ModelsFinance {
             console.log("Finanzas obtenidas correctamente");
             return Finances;
         }
-        else{
-            console.log("No se encontraron finanzas con el tipo:", type_finance);
-            return [];
-        }
     }
 
     // Obtener la categoria de la finanza
@@ -62,10 +46,6 @@ export class ModelsFinance {
         if(Finances.length > 0){
             console.log("Finanzas obtenidas correctamente");
             return Finances;
-        }
-        else{
-            console.log("No se encontraron finanzas con la categoria:", category_finance);
-            return [];
         }
     }
 
