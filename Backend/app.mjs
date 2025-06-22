@@ -12,7 +12,7 @@ app.use(cors());
 app.use(json());
 app.use(cookieParser());
 
-app.use('/Finance', RoutesFinance);
+app.use('/Finances', RoutesFinance);
 app.use('/Users', RoutesUsers);
 
 // Inicialize the server

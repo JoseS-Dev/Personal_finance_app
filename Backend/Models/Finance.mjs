@@ -2,7 +2,7 @@ import { connection } from "./db/connection.mjs";
 export class ModelsFinance {
     // Obtener todas las finanzas
     static async getAllFinances(){
-        const [ Finances ] = await connection.query("SELECT * FROM finances");
+        const [ Finances ] = await connection.query("SELECT * FROM register_finance");
         if(Finances.length > 0){
             console.log("Finanzas obtenidas correctamente");
             return Finances;

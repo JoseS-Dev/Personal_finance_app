@@ -20,6 +20,6 @@ RoutesFinance.get('/category/:category_finance', controllerfinance.getByCategory
 // Crear una nueva finanza
 RoutesFinance.post('/create/:id_user', controllerfinance.createFinance);
 // Actualizar una finanza
-RoutesFinance.put('/update/:id_finance', controllerfinance.updateFinanceByID);
+RoutesFinance.patch('/update/:id_finance', controllerfinance.updateFinanceByID);
 // Eliminar una finanza
-RoutesFinance.delete('/deleted/:id_user/name/:name_finance', controllerfinance.deleteFinanceByName);
+RoutesFinance.delete('/delete/:id_user/name/:name_finance', controllerfinance.deleteFinanceByName);

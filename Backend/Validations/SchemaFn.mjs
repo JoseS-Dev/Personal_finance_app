@@ -12,8 +12,8 @@ export const SchemaFinance = zod.object({
     }).min(1, "La descripción de la finanza es requerida"),
     
     date_finance: zod.string().refine(value => {
-        const parserDate = Date.parse(value);
-        return !isNaN(parserDate) && parserDate > 0;
+        const parserDate =new Date(value);
+        return !isNaN(parserDate.getDate());
     }),
 
     type_finance: zod.string({
