@@ -102,7 +102,7 @@
                     required
                 />
             </div>
-            <a class="text-white text-md mt-2" href="/login">¿Ya tienes una cuenta? Inicia sesión</a>
+            <a class="text-white text-md mt-2" @click="router.push("/Login")">¿Ya tienes una cuenta? Inicia sesión</a>
             <button 
                 class="my-5 w-4/5 h-12 outline-none rounded-3xl text-lg tracking-wider bg-green-500 text-white font-semibold hover:bg-black cursor-pointer hover:text-white transition-colors" 
                 type="submit">
