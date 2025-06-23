@@ -1,4 +1,4 @@
-import { validateUser, validateLogin } from "../Validations/SchemaUsr.mjs";
+import { validateUser, validateLogin, validateUpdateUser } from "../Validations/SchemaUsr.mjs";
 import { Auth } from "../middleware/Auth.mjs";
 
 export class ControllerUsers {
@@ -49,7 +49,7 @@ export class ControllerUsers {
 
     // Cerrar Sesión un usuario
     LogoutUser = async (req, res) => {
-        try{;
+        try{
             const user = await this.ModelsUser.LogoutUser({ user: req.body });
             return res.clearCookie("AccessToken").status(200).json({
                 message: "Usuario deslogueado correctamente",
@@ -59,6 +59,27 @@ export class ControllerUsers {
         catch(error){
             console.error("Error al cerrar sesión:", error);
             return res.status(500).json({ message: "Error al cerrar sesión." });
+        }
+    }
+
+    // Actualizar los datos de un usuario
+    UpdateUser = async (req, res) => {
+        try{
+            const { id_user } = req.params;
+            const result = validateUpdateUser(req.body);
+            if (!result.success) {
+                return res.status(400).json({ error: result.error.errors });
+            }
+            const user = await this.ModelsUser.UpdateUser({ id_user, user: result.data });
+            if(!user) return res.status(404).json({ message: "Usuario no encontrado." });
+            return res.status(200).json({
+                message: "Usuario actualizado correctamente",
+                data: user,
+            });
+        }
+        catch(error){
+            console.error("Error al actualizar el usuario:", error);
+            return res.status(500).json({ message: "Error al actualizar el usuario." });
         }
     }
 

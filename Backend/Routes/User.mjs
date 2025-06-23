@@ -13,3 +13,6 @@ RoutesUsers.post('/', controllerusers.registerUser);
 RoutesUsers.post('/Login', controllerusers.LoginUser);
 // Logout de un usuario
 RoutesUsers.post('/Logout', controllerusers.LogoutUser);
+
+// Actualizar un usuario
+RoutesUsers.patch('/Update/:id_user', controllerusers.UpdateUser);

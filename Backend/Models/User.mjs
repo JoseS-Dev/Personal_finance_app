@@ -94,4 +94,40 @@ export class ModelsUser {
             return userData;
         }
     }
+
+    // Actualizar los datos de un usuario
+    static async UpdateUser({id_user,user}){
+        if(user){
+            // Se verifica si el usuario esta loguado
+            const { account_balance_user, meta_user } = user;
+            const [existingUser] = await connection.query(
+                `SELECT * FROM login_users WHERE id_user = ? AND is_active = ?`,
+                [id_user, 1]
+            );
+            if(existingUser.length > 0){
+                console.log("Usuario logueado, actualizando datos...");
+                // Si el usuario esta loguado se actualizan los datos
+                const [updateUser] = await connection.query(
+                    `UPDATE register_user SET account_balance_user = ?, meta_user = ? WHERE id_user = ?`,
+                    [account_balance_user, meta_user, id_user]
+                )
+                if(updateUser.affectedRows > 0){
+                    // Si se actualiza correctamente, se retorna el usuario actualizado
+                    const [ userDB ] = await connection.query(
+                        `SELECT * FROM register_user WHERE id_user = ?`,
+                        [id_user]
+                    )
+                    if(userDB.length > 0){
+                        console.log("Usuario actualizado correctamente.");
+                        return userDB[0];
+                    }
+                    else{
+                        console.error("Error al actualizar el usuario.");
+                        return { message: "Error al actualizar el usuario." };
+                    }
+                }
+            }
+            
+        }
+    }
 }

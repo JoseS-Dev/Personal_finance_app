@@ -27,6 +27,15 @@ Content-Type: application/json
     "password_user": "JSa06..."
 }
 
+### Update a user
+PATCH http://localhost:5000/Users/update/1
+Content-Type: application/json
+
+{
+    "account_balance_user": 1000.00,
+    "meta_user": 3500.00
+}
+
 ### Get the all finances 
 GET http://localhost:5000/Finances
 
