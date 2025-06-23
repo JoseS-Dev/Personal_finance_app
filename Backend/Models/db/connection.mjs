@@ -9,4 +9,5 @@ export const connection = createPool({
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "finances_db",
     port: process.env.DB_PORT || 3306,
+    decimalNumbers: true
 })

@@ -19,7 +19,7 @@
             password_user: password_user.value
         }
         try {
-            const response = await fetch(`${import.meta.env}/Users`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,8 +48,8 @@
 </script>
 
 <template>
-    <main class="border-2 border-black w-full h-screen flex flex-col items-center justify-center">
-        <form @submit="handleRegister" class="rounded-2xl border-2 border-black w-1/4 h-4/5 flex flex-col items-center p-5 bg-gray-700">
+    <main class="w-full h-screen flex flex-col items-center justify-center">
+        <form @submit="handleRegister" class="shadow-lg shadow-gray-500 rounded-2xl border-2 border-black w-1/4 h-4/5 flex flex-col items-center p-5 bg-gray-700">
             <div class="w-full flex h-10 items-center justify-center gap-5  text-2xl">
                 <img src="/public/Logo.png" alt="Logo" class="w-10 h-10"/>
                 <h2 class="font-bold text-white">Registro de Usuario</h2>

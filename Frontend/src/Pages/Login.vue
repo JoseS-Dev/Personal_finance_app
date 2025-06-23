@@ -1,5 +1,7 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+    import SectionLogin from '../components/SectionLogin.vue';
+</script>
 
 <template>
-    <h1>Login User</h1>
+    <SectionLogin />
 </template>
