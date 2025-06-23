@@ -39,7 +39,6 @@ export class ControllerUsers {
             }).status(200).json({
                 message: "Usuario logueado correctamente",
                 data: user,
-                token: Auth(user)
             });
         }
         catch(error){

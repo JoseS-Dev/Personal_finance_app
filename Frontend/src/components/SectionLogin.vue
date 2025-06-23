@@ -22,9 +22,10 @@
                 body: JSON.stringify(formData)
             })
             if(!response.ok) throw new Error('Error al iniciar sesión');
-            const data = await response.json();
-            console.log('Usuario autenticado:', data);
+            const user = await response.json();
+            console.log('Usuario autenticado:', user);
             alert('Inicio de sesión exitoso.');
+            localStorage.setItem('user', JSON.stringify(user));
             router.push('/')
         }
         catch(error){
