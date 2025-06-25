@@ -1,3 +1,9 @@
+<script setup lang="ts">
+    import NavBar from '../components/NavBar.vue';
+</script>
+
 <template>
-    <h1>Admin Page</h1>
+    <main class="border-2 border-black w-full h-screen">
+        <NavBar/>
+    </main>
 </template>

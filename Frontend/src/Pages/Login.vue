@@ -71,7 +71,7 @@
                 />
             </div>
             <div class="w-full h-2/5  flex flex-col items-center justify-center py-5 gap-1.5">
-                <a @click="router.push('/Register')" class="text-white text-md mb-3">¿No tienes Cuenta? Registrate</a>
+                <a href="/Register" class="text-white text-md mb-3">¿No tienes Cuenta? Registrate</a>
                 <button class="outline-none w-4/5 h-12 rounded-3xl text-lg tracking-wide bg-green-500 text-white font-semibold hover:bg-black cursor-pointer hover:text-white transition-colors" type="submit">Iniciar Sesión</button>
             </div>
         </form>

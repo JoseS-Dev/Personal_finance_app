@@ -24,7 +24,6 @@ Content-Type: application/json
 
 {
     "email_user": "joseasantana05@gmail.com",
-    "password_user": "JSa06..."
 }
 
 ### Update a user
