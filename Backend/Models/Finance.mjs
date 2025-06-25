@@ -57,11 +57,11 @@ export class ModelsFinance {
         if(user.length > 0){
             console.log("Usuario encontrado, creando finanza...");
             const userID = user[0].id_user;
-            const { name_finance, description_finance, date_finance, type_finance, category_finance, amount_finance } = finance;
+            const { description_finance, date_finance, type_finance, category_finance, amount_finance } = finance;
             // Se inserta la nueva finanza en la base de datos
             const [ financeCreated ] = await connection.query(
-                `INSERT INTO register_finance (id_user, name_finance ,description_finance, date_finance, type_finance, category_finance, amount_finance)
-                VALUES (?, ? ,?, ?, ?, ?, ?)`,
+                `INSERT INTO register_finance (id_user, description_finance, date_finance, type_finance, category_finance, amount_finance)
+                VALUES (? ,?, ?, ?, ?, ?)`,
                 [userID, name_finance, description_finance, date_finance, type_finance, category_finance, amount_finance]
             )
             if(financeCreated.affectedRows > 0){
@@ -76,8 +76,8 @@ export class ModelsFinance {
     }
 
     // Eliminar una finanza por el nombre
-    static async deleteFinanceByName({ id_user, name_finance }){
-        if(!id_user || !name_finance) return { error: "ID de usuario o nombre de finanza no proporcionados"};
+    static async deleteFinanceByName({ id_user, description_finance }){
+        if(!id_user || !description_finance) return { error: "ID de usuario o nombre de finanza no proporcionados"};
         // Se verifica si el usuario esta logueado
         const [ user ] = await connection.query("SELECT * FROM login_users WHERE id_user = ?", [id_user]);
         if(user.length > 0){
@@ -85,7 +85,7 @@ export class ModelsFinance {
             const userID = user[0].id_user;
             // Se elimina la finanza de la base de datos
             const [ financeDeleted ] = await connection.query(
-                `DELETE FROM register_finance WHERE id_user = ? AND name_finance = ?`,
+                `DELETE FROM register_finance WHERE id_user = ? AND description_finance = ?`,
                 [userID, name_finance]
             )
             if(financeDeleted.affectedRows > 0){
