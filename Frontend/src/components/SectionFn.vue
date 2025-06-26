@@ -6,29 +6,29 @@
 </script>
 
 <template>
-    <section class="w-full h-3/10 flex items-center justify-around">
-        <article class="cursor-pointer flex flex-col items-center justify-center border-2 border-black rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-green-400  hover:text-white transition-colors">
+    <section class="w-full h-1/4 flex items-center justify-around">
+        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-green-400  hover:text-white transition-colors">
             <AccountAtIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Cuenta Actual</span>
                 <span class="text-2xl font-bold">0.00 $</span>
             </div>
         </article>
-        <article class="cursor-pointer flex flex-col items-center justify-center border-2 border-black rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400  hover:text-white transition-colors">
+        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400  hover:text-white transition-colors">
             <IncomeIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Ingresos</span>
                 <span class="text-2xl  font-bold">0.00 $</span>
             </div>
         </article>
-        <article class="cursor-pointer flex flex-col items-center justify-center border-2 border-black rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400  hover:text-white transition-colors">
+        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400  hover:text-white transition-colors">
             <ExpenseIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Gastos</span>
                 <span class="text-2xl text-red-600 font-bold">0.00 $</span>
             </div>
         </article>
-        <article class="cursor-pointer flex flex-col items-center justify-center border-2 border-black rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400  hover:text-white transition-colors">
+        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400  hover:text-white transition-colors">
             <GoalIcons/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Metas</span>
