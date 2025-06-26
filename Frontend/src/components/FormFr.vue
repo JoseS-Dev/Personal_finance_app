@@ -1,14 +1,43 @@
 <script setup lang="ts">
     import {TYPES, CATEGORYS} from '../Utils'
     import { ref } from 'vue';
+    import { useFinanceStore } from '../ContextStore/financeStore';
+    const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const Type_finance = ref('Gasto');
     const description_finance = ref('');
     const amount_finance = ref('');
     const category_finance = ref('Salidas');
     const date_finance = ref(new Date().toISOString().split('T')[0]);
+
+    // Funcion para mandar el formulario para registrar una finanza
+    const submitFinance = async(event:Event) => {
+        event.preventDefault();
+        const financeData = {
+            type_finance: Type_finance.value,
+            description_finance: description_finance.value,
+            amount_finance: parseFloat(amount_finance.value),
+            category_finance: category_finance.value,
+            date_finance: date_finance.value,
+        }
+        try{
+            await useFinanceStore().fetchFinances(userID, financeData);
+            alert('Finanza registrada exitosamente');   
+        }
+        catch(error){
+            console.error('Error al registrar la finanza:', error);
+            alert('Error al registrar la finanza. Por favor, inténtalo de nuevo.');
+        } finally {
+            // Limpiar los campos del formulario
+            Type_finance.value = 'Gasto';
+            description_finance.value = '';
+            amount_finance.value = '';
+            category_finance.value = 'Salidas';
+            date_finance.value = new Date().toISOString().split('T')[0];
+        }
+    }
 </script>
 <template>
-    <form class="flex flex-col items-center h-full w-full px-2 gap-1 border-gray-600 border-1 rounded-2xl">
+    <form @submit="submitFinance" class="flex flex-col items-center h-full w-full px-2 gap-1 border-gray-600 border-1 rounded-2xl">
         <h2 class="font-semibold text-lg mt-2">Registrar Finanzas</h2>
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
             <label class="text-md tracking-wide" for="Type_finance">Tipo</label>

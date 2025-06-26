@@ -17,6 +17,8 @@ RoutesFinance.get('/amount/:amount_finance', controllerfinance.getByAmount);
 RoutesFinance.get('/type/:type_finance', controllerfinance.getByType);
 // Obtener la categoria de la finanza
 RoutesFinance.get('/category/:category_finance', controllerfinance.getByCategory);
+// Obtener el mes y el año de una finanza
+RoutesFinance.get('/date/:date_finance', controllerfinance.getByDate);
 // Crear una nueva finanza
 RoutesFinance.post('/create/:id_user', controllerfinance.createFinance);
 // Actualizar una finanza

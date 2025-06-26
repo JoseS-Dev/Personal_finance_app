@@ -20,6 +20,9 @@
             if(!response.ok) throw new Error('Error al cerrar sesión');
             alert('Sesión cerrada exitosamente.');
             localStorage.removeItem('user');
+            localStorage.removeItem('incomes');
+            localStorage.removeItem('expenses');
+            
             router.push('/');
         }
         catch(error){

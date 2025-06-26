@@ -49,6 +49,24 @@ export class ModelsFinance {
         }
     }
 
+    // Obtener el mes y el año de la finanza
+    static async getByDate({date_finance}){
+        if(date_finance){
+            const [FinancesDate] = await connection.query(
+                `SELECT MONTH(date_finance) AS mes, YEAR(date_finance) FROM register_finance WHERE date_finance = ?`,
+                [date_finance]
+            )
+            if(FinancesDate.length > 0){
+                console.log("Fechas encontradas exitosamente");
+                return FinancesDate;
+            }
+            else{
+                console.log("Hubo un error a la hora de encontrar la fecha");
+                return null;
+            }
+        }
+    }
+
     // Crear una nueva finanza
     static async createFinance({ id_user, finance}){
         if(!id_user || !finance) return { error: "ID de usuario o finanza no proporcionados" };

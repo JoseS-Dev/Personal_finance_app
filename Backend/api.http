@@ -55,7 +55,6 @@ POST http://localhost:5000/Finances/create/3
 Content-Type: application/json
 
 {
-    "name_finance": "Salario de la empresa",
     "description_finance": "Salario mensual de la empresa",
     "amount_finance": 1500.00,
     "date_finance": "2023-10-01",

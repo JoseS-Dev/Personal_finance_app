@@ -137,6 +137,33 @@ export class ControllerFinance {
         }
     }
 
+    // Obtener el mes y el año de una finanza
+    getByDate = async(req, res) => {
+       const { date_finance } = req.params;
+       try{
+            const financeDate = await this.ModelsFinance.getByDate({date_finance});
+            if(financeDate && financeDate.length > 0){
+                return res.status(200).json({
+                        message: "Finanzas obtenidas correctamente",
+                        data: financeDate
+                });
+            }
+            else{
+                return res.status(404).json({
+                    message: "No se encontraron finanzas con esa categoria",
+                    data: []
+                });
+            }
+       }
+       catch(error){
+            console.error("Error al obtener las finanzas por categoria:", error);
+            return res.status(500).json({
+                message: "Error al obtener las finanzas por categoria",
+                error: error.message
+            });
+       }
+    }
+
     // Crear una nueva finanza
     createFinance = async (req, res) => {
         const { id_user } = req.params;

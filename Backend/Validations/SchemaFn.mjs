@@ -1,11 +1,6 @@
 import zod from 'zod';
 
 export const SchemaFinance = zod.object({
-    name_finance: zod.string({
-        required_error: "El nombre de la finanza es requerido",
-        invalid_type_error: "El nombre de la finanza debe ser una cadena de texto"
-    }).min(1, "El nombe de la finanza es requerido"),
-    
     description_finance: zod.string({
         required_error: "La descripción de la finanza es requerida",
         invalid_type_error: "La descripción de la finanza debe ser una cadena de texto"
