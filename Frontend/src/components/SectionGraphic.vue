@@ -2,9 +2,20 @@
     import FormFr from './FormFr.vue';
     import Graphics from './Graphics.vue';
     import { MONTHS, YEARS } from '../Utils';
-    import { ref } from 'vue';
-    const month_select = ref('Enero');
+    import { ref, computed } from 'vue';
+    const month_select = ref(MONTHS[new Date().getMonth()]);
     const year_select = ref('2025');
+
+    const formattedDate = computed(() => {
+        if(!month_select.value || !year_select.value) {
+            return '';
+        }
+        const monthIndex = MONTHS.indexOf(month_select.value) + 1;
+        const date = new Date(`${year_select.value}-${monthIndex}-01`);
+        return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    })
+    console.log(formattedDate.value);
+    
 </script>
 
 <template>

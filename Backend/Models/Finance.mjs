@@ -53,7 +53,7 @@ export class ModelsFinance {
     static async getByDate({date_finance}){
         if(date_finance){
             const [FinancesDate] = await connection.query(
-                `SELECT MONTH(date_finance) AS mes, YEAR(date_finance) as Año FROM register_finance WHERE MONTH(date_finance) = MONTH(?) AND YEAR(date_finance) = YEAR(?)`,
+                `SELECT MONTH(date_finance) AS mes, YEAR(date_finance) as Año, type_finance,amount_finance FROM register_finance WHERE MONTH(date_finance) = MONTH(?) AND YEAR(date_finance) = YEAR(?)`,
                 [date_finance, date_finance]
             )
             if(FinancesDate.length > 0){
