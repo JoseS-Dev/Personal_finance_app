@@ -1,13 +1,15 @@
 <script setup lang="ts">
     import {TYPES, CATEGORYS} from '../Utils'
     import { ref } from 'vue';
-    import { useFinanceStore } from '../ContextStore/financeStore';
+    import { StoreFinance } from '../ContextStore/financeStore';
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const Type_finance = ref('Gasto');
     const description_finance = ref('');
-    const amount_finance = ref('');
+    const amount_finance = ref(0);
     const category_finance = ref('Salidas');
     const date_finance = ref(new Date().toISOString().split('T')[0]);
+    const financeStore = StoreFinance();
+    const { addBalance } = financeStore
 
     // Funcion para mandar el formulario para registrar una finanza
     const submitFinance = async(event:Event) => {
@@ -15,13 +17,30 @@
         const financeData = {
             type_finance: Type_finance.value,
             description_finance: description_finance.value,
-            amount_finance: parseFloat(amount_finance.value),
+            amount_finance: amount_finance.value,
             category_finance: category_finance.value,
             date_finance: date_finance.value,
         }
+        
         try{
-            await useFinanceStore().fetchFinances(userID, financeData);
-            alert('Finanza registrada exitosamente');   
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/finances/create/${userID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(financeData),
+            })
+            if(!response.ok){
+                throw new Error('Error al registrar la finanza');
+            }
+            const data = await response.json();
+            console.log('Finanza registrada:', data);
+            localStorage.setItem('finances', JSON.stringify(data));
+            console.log(localStorage.getItem('finances'));
+            financeStore.type_finance = data.data.type_finance;
+            financeStore.amount_finance = data.data.amount_finance;
+            addBalance();
+            alert('Finanza registrada exitosamente'); 
         }
         catch(error){
             console.error('Error al registrar la finanza:', error);
@@ -30,7 +49,7 @@
             // Limpiar los campos del formulario
             Type_finance.value = 'Gasto';
             description_finance.value = '';
-            amount_finance.value = '';
+            amount_finance.value = 0;
             category_finance.value = 'Salidas';
             date_finance.value = new Date().toISOString().split('T')[0];
         }

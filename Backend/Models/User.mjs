@@ -91,6 +91,7 @@ export class ModelsUser {
                 [0, userData.id_user]
             )
             if(LogoutUser.affectedRows <= 0) return { message: "Error al desloguear el usuario." };
+            console.log("Usuario deslogueado correctamente.");
             return userData;
         }
     }

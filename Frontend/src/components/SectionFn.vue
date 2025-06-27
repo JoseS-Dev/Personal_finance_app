@@ -3,11 +3,17 @@
     import IncomeIcon from '../Icons/IncomeIcon.vue';
     import AccountAtIcon from '../Icons/AccountAtIcon.vue';
     import GoalIcons from '../Icons/GoalIcons.vue';
-    const userMeta = JSON.parse(localStorage.getItem('user') || '{}').data.meta_user || 0;
-    import { useFinanceStore } from '../ContextStore/financeStore';
+    import { StoreFinance } from '../ContextStore/financeStore';
     import { storeToRefs } from 'pinia';
-    const financeStore = useFinanceStore();
-    const { balance, incomes, expenses } = storeToRefs(financeStore);
+    import { onMounted } from 'vue';
+    const userMeta = JSON.parse(localStorage.getItem('user') || '{}').data.meta_user || 0;
+    const useFinanceStore = StoreFinance();
+    const { initializeStore } = useFinanceStore;
+    onMounted(() => {
+        initializeStore();
+    })
+    const { accountBalance, incomes, expenses } = storeToRefs(useFinanceStore);
+    
 </script>
 
 <template>
@@ -16,7 +22,7 @@
             <AccountAtIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Cuenta Actual</span>
-                <span class="text-2xl font-bold">{{ balance }} $</span>
+                <span class="text-2xl font-bold">{{ accountBalance }} $</span>
             </div>
         </article>
         <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400  hover:text-white transition-colors">

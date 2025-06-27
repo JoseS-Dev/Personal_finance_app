@@ -71,25 +71,38 @@ export class ModelsFinance {
     static async createFinance({ id_user, finance}){
         if(!id_user || !finance) return { error: "ID de usuario o finanza no proporcionados" };
         // Se verifica si el usuario esta loguado
-        const [ user ] = await connection.query("SELECT * FROM login_users WHERE id_user = ?", [id_user]);
+        const [ user ] = await connection.query("SELECT * FROM login_users WHERE id_user = ? AND is_active = 1", [id_user]);
         if(user.length > 0){
             console.log("Usuario encontrado, creando finanza...");
             const userID = user[0].id_user;
+            console.log(userID)
             const { description_finance, date_finance, type_finance, category_finance, amount_finance } = finance;
             // Se inserta la nueva finanza en la base de datos
             const [ financeCreated ] = await connection.query(
                 `INSERT INTO register_finance (id_user, description_finance, date_finance, type_finance, category_finance, amount_finance)
                 VALUES (? ,?, ?, ?, ?, ?)`,
-                [userID, name_finance, description_finance, date_finance, type_finance, category_finance, amount_finance]
+                [userID, description_finance, date_finance, type_finance, category_finance, amount_finance]
             )
+            
             if(financeCreated.affectedRows > 0){
                 console.log("Finanza creada correctamente");
-                return financeCreated;
+                return {
+                    id_finance: financeCreated.insertId,
+                    id_user: userID,
+                    description_finance,
+                    date_finance,
+                    type_finance,
+                    category_finance,
+                    amount_finance
+                };
             }
             else{
                 console.log("Error al crear la finanza");
                 return { error: "Error al crear la finanza" };
             }
+        }
+        else{
+            console.log("El usuario no esta loguado")
         }
     }
 

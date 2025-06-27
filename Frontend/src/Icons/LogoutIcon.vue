@@ -1,6 +1,10 @@
 <script setup lang="ts">
     import { useRouter } from 'vue-router';
-    const userEmail = JSON.parse(localStorage.getItem('user') || '{}').email_user;
+    import { StoreFinance } from '../ContextStore/financeStore';
+    const userEmail = JSON.parse(localStorage.getItem('user') || '{}').data.email_user;
+    console.log("Email del usuario:", userEmail);
+    const financeData = StoreFinance();
+    const { resetStore } = financeData;
     const router = useRouter();
     
     // Function to handle logout
@@ -10,19 +14,21 @@
             email_user: userEmail
         }
         try{
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Users/Logout`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Users/logout`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
-            })
-            if(!response.ok) throw new Error('Error al cerrar sesión');
-            alert('Sesión cerrada exitosamente.');
+                body: JSON.stringify(formData),
+            });
+            if(!response.ok){
+                throw new Error('Error al cerrar sesión');
+            }
+            alert("Sesión cerrada exitosamente");
+            resetStore();
             localStorage.removeItem('user');
             localStorage.removeItem('incomes');
             localStorage.removeItem('expenses');
-            
             router.push('/');
         }
         catch(error){

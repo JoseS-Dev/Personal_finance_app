@@ -23,7 +23,7 @@ POST http://localhost:5000/Users/logout
 Content-Type: application/json
 
 {
-    "email_user": "joseasantana05@gmail.com",
+    "email_user": "joseasantana05@gmail.com"
 }
 
 ### Update a user
@@ -51,7 +51,7 @@ GET http://localhost:5000/Finances/type/Ingreso
 GET http://localhost:5000/Finances/category/Servicios
 
 ### Create a new finance record
-POST http://localhost:5000/Finances/create/3
+POST http://localhost:5000/Finances/create/1
 Content-Type: application/json
 
 {
