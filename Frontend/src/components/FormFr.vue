@@ -2,6 +2,7 @@
     import {TYPES, CATEGORYS} from '../Utils'
     import { ref } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
+    import { defineEmits } from 'vue';
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const Type_finance = ref('Gasto');
     const description_finance = ref('');
@@ -9,6 +10,7 @@
     const category_finance = ref('Salidas');
     const date_finance = ref(new Date().toISOString().split('T')[0]);
     const financeStore = StoreFinance();
+    const emits = defineEmits(['financeAdded']);
     const { addBalance } = financeStore
 
     // Funcion para mandar el formulario para registrar una finanza
@@ -40,6 +42,7 @@
             financeStore.type_finance = data.data.type_finance;
             financeStore.amount_finance = data.data.amount_finance;
             addBalance();
+            emits('financeAdded', data.data);
             alert('Finanza registrada exitosamente'); 
         }
         catch(error){

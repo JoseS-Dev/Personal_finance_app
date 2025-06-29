@@ -5,6 +5,7 @@ export const StoreFinance = defineStore('financeStore', () => {
     const accountBalance = ref(0);
     const incomes = ref(0);
     const expenses = ref(0);
+    const meta = ref(0);
     const amount_finance = ref(0);
     const type_finance = ref('');
     
@@ -15,6 +16,7 @@ export const StoreFinance = defineStore('financeStore', () => {
         if(storedFinances.data && storeUser.data){
             accountBalance.value = storeUser.data.account_balance_user;
             amount_finance.value = storedFinances.data.amount_finance;
+            meta.value = storeUser.data.meta_user || 0;
             type_finance.value = storedFinances.data.type_finance;
             incomes.value = parseFloat(localStorage.getItem('incomes') || '0');
             expenses.value = parseFloat(localStorage.getItem('expenses') || '0');
@@ -25,6 +27,7 @@ export const StoreFinance = defineStore('financeStore', () => {
 
     // Function to add balance
     const addBalance = () => {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
         if(type_finance.value === 'Ingreso') {
             accountBalance.value += amount_finance.value;
             incomes.value += amount_finance.value;
@@ -35,8 +38,12 @@ export const StoreFinance = defineStore('financeStore', () => {
             expenses.value += amount_finance.value;
             localStorage.setItem('expenses', JSON.stringify(expenses.value));
         }
+        else if(type_finance.value === 'Meta'){
+            meta.value += amount_finance.value;
+            user.data.meta_user = meta.value;
+            localStorage.setItem('user', JSON.stringify(meta.value));
+        }
         // Update local storage
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
         user.data.account_balance_user = accountBalance.value;
         localStorage.setItem('user', JSON.stringify(user));
 
@@ -46,8 +53,9 @@ export const StoreFinance = defineStore('financeStore', () => {
         accountBalance.value = 0;
         incomes.value = 0;
         expenses.value = 0;
+        meta.value = 0;
         amount_finance.value = 0;
         type_finance.value = '';
     }
-    return { accountBalance, incomes, expenses, amount_finance, type_finance, initializeStore, addBalance, resetStore };
+    return { accountBalance, incomes, expenses, meta, amount_finance, type_finance, initializeStore, addBalance, resetStore };
 });

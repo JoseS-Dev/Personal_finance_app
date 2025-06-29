@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { useRouter } from 'vue-router';
-    import { StoreFinance } from '../ContextStore/financeStore';
+    import { StoreFinance } from '../../ContextStore/financeStore';
     const userEmail = JSON.parse(localStorage.getItem('user') || '{}').data.email_user;
     console.log("Email del usuario:", userEmail);
     const financeData = StoreFinance();

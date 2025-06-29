@@ -39,7 +39,7 @@ Content-Type: application/json
 GET http://localhost:5000/Finances
 
 ### Get the all finances of a user
-GET http://localhost:5000/Finances/user/3
+GET http://localhost:5000/Finances/user/1
 
 ### Get a specific finance for amount
 GET http://localhost:5000/Finances/amount/1600.00
@@ -66,7 +66,7 @@ Content-Type: application/json
 }
 
 ### Delete a finance record
-DELETE http://localhost:5000/Finances/delete/3/name/Salario de la empresa
+DELETE http://localhost:5000/Finances/delete/1/name/Sanchez
 
 ### Update a finance record
 PATCH http://localhost:5000/Finances/update/5

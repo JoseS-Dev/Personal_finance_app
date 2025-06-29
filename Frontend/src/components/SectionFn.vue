@@ -1,18 +1,17 @@
 <script setup lang="ts">
-    import ExpenseIcon from '../Icons/ExpenseIcon.vue';
-    import IncomeIcon from '../Icons/IncomeIcon.vue';
-    import AccountAtIcon from '../Icons/AccountAtIcon.vue';
-    import GoalIcons from '../Icons/GoalIcons.vue';
+    import AccountAtIcon from '../assets/Icons/AccountAtIcon.vue';
+    import IncomeIcon from '../assets/Icons/IncomeIcon.vue';
+    import ExpenseIcon from '../assets/Icons/ExpenseIcon.vue';
+    import GoalIcons from '../assets/Icons/GoalIcons.vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import { storeToRefs } from 'pinia';
     import { onMounted } from 'vue';
-    const userMeta = JSON.parse(localStorage.getItem('user') || '{}').data.meta_user || 0;
     const useFinanceStore = StoreFinance();
     const { initializeStore } = useFinanceStore;
     onMounted(() => {
         initializeStore();
     })
-    const { accountBalance, incomes, expenses } = storeToRefs(useFinanceStore);
+    const { accountBalance, incomes, expenses, meta } = storeToRefs(useFinanceStore);
     
 </script>
 
@@ -43,13 +42,13 @@
             <GoalIcons/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Meta</span>
-                <span class="text-2xl text-orange-600 font-bold">{{ userMeta }} $</span>
+                <span class="text-2xl text-orange-600 font-bold">{{ meta }} $</span>
             </div>
         </article>
     </section>
 </template>
 
-<style>
+<style scoped>
     article:nth-child(1):hover svg{
         stroke: #4F8B31;
         background-color: #fff;

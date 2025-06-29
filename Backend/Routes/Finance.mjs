@@ -24,4 +24,4 @@ RoutesFinance.post('/create/:id_user', controllerfinance.createFinance);
 // Actualizar una finanza
 RoutesFinance.patch('/update/:id_finance', controllerfinance.updateFinanceByID);
 // Eliminar una finanza
-RoutesFinance.delete('/delete/:id_user/name/:name_finance', controllerfinance.deleteFinanceByName);
+RoutesFinance.delete('/delete/:id_user/name/:description_finance', controllerfinance.deleteFinanceByName);

@@ -15,7 +15,7 @@ export const SchemaFinance = zod.object({
         required_error: "El tipo de finanza es requerido",
         invalid_type_error: "El tipo de finanza debe ser una cadena de texto"
     }).refine(value => {
-        const validTypes = ["Ingreso", "Gasto"];
+        const validTypes = ["Ingreso", "Gasto", "Meta"];
         return validTypes.includes(value);
     }),
 

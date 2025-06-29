@@ -12,7 +12,9 @@ export class ModelsFinance {
     // Obtener las finanzas de un usuario
     static async getByUserID({ id_user }){
         if(!id_user) return { error: "ID de usuario no proporcionado" };
-        const [ Finances ] = await connection.query("SELECT * FROM register_finance WHERE id_user = ?", [id_user]);
+        const [ Finances ] = await connection.query(
+            "SELECT id_finance,type_finance,category_finance,amount_finance,description_finance,DATE_FORMAT(date_finance, '%Y-%m-%d') as date_finance FROM register_finance WHERE id_user = ?", 
+            [id_user]);
         if(Finances.length > 0){
             console.log("Finanzas obtenidas correctamente");
             return Finances;
@@ -116,8 +118,8 @@ export class ModelsFinance {
             const userID = user[0].id_user;
             // Se elimina la finanza de la base de datos
             const [ financeDeleted ] = await connection.query(
-                `DELETE FROM register_finance WHERE id_user = ? AND description_finance = ?`,
-                [userID, name_finance]
+                `DELETE FROM register_finance WHERE id_user = ? AND description_finance LIKE ?`,
+                [userID, `%${description_finance}%`]
             )
             if(financeDeleted.affectedRows > 0){
                 console.log("Finanza eliminada correctamente");
