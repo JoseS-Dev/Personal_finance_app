@@ -3,6 +3,7 @@
     import { ref } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import { defineEmits } from 'vue';
+    import sweetalert from 'sweetalert2';
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const Type_finance = ref('Gasto');
     const description_finance = ref('');
@@ -43,11 +44,22 @@
             financeStore.amount_finance = data.data.amount_finance;
             addBalance();
             emits('financeAdded', data.data);
-            alert('Finanza registrada exitosamente'); 
+            await sweetalert.fire({
+                title: 'Finanza registrada exitosamente',
+                text: `Tipo: ${data.data.type_finance}, Monto: ${data.data.amount_finance}`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+             
         }
         catch(error){
             console.error('Error al registrar la finanza:', error);
-            alert('Error al registrar la finanza. Por favor, inténtalo de nuevo.');
+            await sweetalert.fire({
+                title: 'Error',
+                text: 'No se pudo registrar la finanza. Por favor, inténtalo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         } finally {
             // Limpiar los campos del formulario
             Type_finance.value = 'Gasto';

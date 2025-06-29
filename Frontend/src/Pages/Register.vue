@@ -1,6 +1,7 @@
 <script lang="ts" setup>
     import {ref} from 'vue';
     import {useRouter} from 'vue-router';
+    import sweetalert from 'sweetalert2';
     
     const router = useRouter();
     const name_user = ref('');
@@ -29,13 +30,23 @@
             if(!response.ok) throw new Error('Error al registrar el usuario');
             const data = await response.json();
             console.log('Usuario registrado:', data);
-            alert('Usuario registrado exitosamente. Por favor, inicia sesión.');
+            await sweetalert.fire({
+                title: 'Registro exitoso',
+                text: `Bienvenido ${data.data.name_user}`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
             router.push('/');
             
         }
         catch(error){
             console.error('Error al registrar el usuario:', error);
-            alert('Error al registrar el usuario. Por favor, inténtalo de nuevo.');
+            await sweetalert.fire({
+                title: 'Error',
+                text: 'No se pudo registrar el usuario. Por favor, inténtalo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         } finally {
             // Limpiar los campos del formulario
             name_user.value = '';

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
+    import sweetalert from 'sweetalert2';
     
     const router = useRouter();
     const email_user = ref('');
@@ -23,14 +24,23 @@
             })
             if(!response.ok) throw new Error('Error al iniciar sesión');
             const user = await response.json();
-            console.log('Usuario autenticado:', user);
-            alert('Inicio de sesión exitoso.');
+            await sweetalert.fire({
+                title: 'Inicio de sesión exitoso',
+                text: `Bienvenido ${user.data.name_user}`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
             localStorage.setItem('user', JSON.stringify(user));
-            router.push('/Home')
+            router.push('/Home');
         }
         catch(error){
             console.error('Error al iniciar sesión:', error);
-            alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+            await sweetalert.fire({
+                title: 'Error',
+                text: 'Correo o contraseña incorrectos',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         } finally {
             // Clear the input fields
             email_user.value = '';

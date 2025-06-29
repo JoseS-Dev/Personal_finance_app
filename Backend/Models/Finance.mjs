@@ -7,6 +7,10 @@ export class ModelsFinance {
             console.log("Finanzas obtenidas correctamente");
             return Finances;
         }
+        else{
+            console.log("No hay finanzas registradas");
+            return [];
+        }
     }
 
     // Obtener las finanzas de un usuario
@@ -18,6 +22,10 @@ export class ModelsFinance {
         if(Finances.length > 0){
             console.log("Finanzas obtenidas correctamente");
             return Finances;
+        }
+        else{
+            console.log("No hay finanzas registradas para este usuario");
+            return [];
         }
     }
 
@@ -123,7 +131,7 @@ export class ModelsFinance {
             )
             if(financeDeleted.affectedRows > 0){
                 console.log("Finanza eliminada correctamente");
-                return financeDeleted;
+                return financeDeleted
             }
             else{
                 console.log("Error al eliminar la finanza o no se encontró la finanza");

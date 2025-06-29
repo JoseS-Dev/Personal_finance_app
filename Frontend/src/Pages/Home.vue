@@ -1,6 +1,7 @@
 <script lang="ts" setup>
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
+    import sweetalert from 'sweetalert2';
     const router = useRouter();
     const account_balance_user = ref('');
     const meta_user = ref('');
@@ -24,13 +25,23 @@
             })
             if(!response.ok) throw new Error('Error al actualizar los datos del usuario');
             const user = await response.json();
-            alert(`Bienvenido a GIGI, ${user.data.name_user}!`);
+            await sweetalert.fire({
+                title: 'Bievenido a GIGI',
+                text: `${user.data.name_user}, tus datos han sido actualizados correctamente.`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
             localStorage.setItem('user', JSON.stringify(user));
             router.push('/admin');
         }
         catch(error){
             console.error('Error al entrar:', error);
-            alert('Error al entrar. Por favor, inténtalo de nuevo.');
+            await sweetalert.fire({
+                title: 'Error',
+                text: 'No se pudo actualizar los datos del usuario. Por favor, inténtalo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         } finally {
             // Clear the input fields
             account_balance_user.value = '';
