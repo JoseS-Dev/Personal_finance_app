@@ -24,14 +24,26 @@
             })
             if(!response.ok) throw new Error('Error al iniciar sesión');
             const user = await response.json();
-            await sweetalert.fire({
-                title: 'Inicio de sesión exitoso',
-                text: `Bienvenido ${user.data.name_user}`,
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            });
-            localStorage.setItem('user', JSON.stringify(user));
-            router.push('/Home');
+            if(user.data.account_balance_user > 0 && user.data.meta_user > 0){
+                localStorage.setItem('user', JSON.stringify(user));
+                await sweetalert.fire({
+                    title: 'Éxito',
+                    text: `Bienvenido de vuelta ${user.data.name_user}`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+                router.push('/admin');
+            }
+            else{
+                localStorage.setItem('user', JSON.stringify(user));
+                await sweetalert.fire({
+                    title: 'Éxito',
+                    text: `Inicio de sesión exitoso, pero no tienes saldo o meta configurada.`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+                router.push('/Home');
+            }
         }
         catch(error){
             console.error('Error al iniciar sesión:', error);

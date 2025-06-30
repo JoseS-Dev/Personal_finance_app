@@ -27,8 +27,6 @@
             alert("Sesión cerrada exitosamente");
             resetStore();
             localStorage.removeItem('user');
-            localStorage.removeItem('incomes');
-            localStorage.removeItem('expenses');
             router.push('/');
         }
         catch(error){

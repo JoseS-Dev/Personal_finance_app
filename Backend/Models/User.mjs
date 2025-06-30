@@ -25,7 +25,11 @@ export class ModelsUser {
                 );
                 if (newUser.affectedRows > 0){
                     console.log("Usuario registrado correctamente.");
-                    return newUser[0];
+                    return {
+                        name_user,
+                        lastName_user,
+                        email_user
+                    };
                 }
             }
         }

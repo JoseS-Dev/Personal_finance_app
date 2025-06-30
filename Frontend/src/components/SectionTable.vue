@@ -9,6 +9,7 @@
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const ListFinances = ref<any[]>([]);
     const financeStore = StoreFinance();
+    const { deleteBalance } = financeStore;
     
     const fetchFinances = async () => {
         try {
@@ -34,28 +35,9 @@
                 method: 'DELETE',
             });
             if (response.ok) {
-                const deletedFinance = await response.json();
+                await response.json();
                 ListFinances.value = ListFinances.value.filter(finance => finance.description_finance !== description);
-                // Actualizar los valores del store
-                if(type_finance === 'Ingreso'){
-                    financeStore.accountBalance -= amount_finance;
-                    financeStore.incomes -= amount_finance;
-                    localStorage.setItem('incomes', JSON.stringify(financeStore.incomes));
-                }
-                else if(deletedFinance.data.type_finance === 'Gasto'){
-                    financeStore.accountBalance += amount_finance;
-                    financeStore.expenses -= amount_finance;
-                    localStorage.setItem('expenses', JSON.stringify(financeStore.expenses));
-                }
-                else if(deletedFinance.data.type_finance === 'Meta'){
-                    financeStore.meta -= amount_finance;
-                }
-
-                // Actualizar el localStorage
-                const user = JSON.parse(localStorage.getItem('user') || '{}');
-                user.data.account_balance_user = financeStore.accountBalance;
-                user.data.meta_user = financeStore.meta;
-                localStorage.setItem('user', JSON.stringify(user));
+                deleteBalance();
                 await sweetalert.fire({
                     title: 'Finanza eliminada exitosamente',
                     text: `Descripción: ${description}, Tipo: ${type_finance}, Monto: ${amount_finance}`,
