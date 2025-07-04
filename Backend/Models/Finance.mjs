@@ -117,26 +117,20 @@ export class ModelsFinance {
     }
 
     // Eliminar una finanza por el nombre
-    static async deleteFinanceByName({ id_user, description_finance }){
-        if(!id_user || !description_finance) return { error: "ID de usuario o nombre de finanza no proporcionados"};
-        // Se verifica si el usuario esta logueado
-        const [ user ] = await connection.query("SELECT * FROM login_users WHERE id_user = ?", [id_user]);
-        if(user.length > 0){
-            console.log("Usuario encontrado, eliminando Finanza...");
-            const userID = user[0].id_user;
-            // Se elimina la finanza de la base de datos
-            const [ financeDeleted ] = await connection.query(
-                `DELETE FROM register_finance WHERE id_user = ? AND description_finance LIKE ?`,
-                [userID, `%${description_finance}%`]
-            )
-            if(financeDeleted.affectedRows > 0){
-                console.log("Finanza eliminada correctamente");
-                return financeDeleted
-            }
-            else{
-                console.log("Error al eliminar la finanza o no se encontró la finanza");
-                return { error: "Error al eliminar la finanza o no se encontró la finanza" };
-            }
+    static async deleteFinanceByName({ id_finance }){
+        if(!id_finance ) return { error: "ID de la finanza no proporcionados"};
+        // Se elimina la finanza de la base de datos
+        const [ financeDeleted ] = await connection.query(
+            `DELETE FROM register_finance WHERE id_finance = ?`,
+            [id_finance]
+        )
+        if(financeDeleted.affectedRows > 0){
+            console.log("Finanza eliminada correctamente");
+            return financeDeleted
+        }
+        else{
+            console.log("Error al eliminar la finanza o no se encontró la finanza");
+            return { error: "Error al eliminar la finanza o no se encontró la finanza" };
         }
     }
 

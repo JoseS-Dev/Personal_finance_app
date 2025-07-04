@@ -200,9 +200,9 @@ export class ControllerFinance {
 
     // Eliminar una finanza por el nombre
     deleteFinanceByName = async (req, res) => {
-        const { id_user, description_finance } = req.params;
+        const {id_finance} = req.params;
         try{
-            const FinanceDeleted = await this.ModelsFinance.deleteFinanceByName({ id_user, description_finance });
+            const FinanceDeleted = await this.ModelsFinance.deleteFinanceByName({ id_finance });
             if(FinanceDeleted){
                 return res.status(200).json({
                     message: "Finanza eliminada correctamente",

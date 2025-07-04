@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { useRouter } from 'vue-router';
     import { StoreFinance } from '../../ContextStore/financeStore';
+    import sweetalert from 'sweetalert2';
     const userEmail = JSON.parse(localStorage.getItem('user') || '{}').data.email_user;
     console.log("Email del usuario:", userEmail);
     const financeData = StoreFinance();
@@ -24,14 +25,24 @@
             if(!response.ok){
                 throw new Error('Error al cerrar sesión');
             }
-            alert("Sesión cerrada exitosamente");
+            await sweetalert.fire({
+                title: 'Éxito',
+                text: `Sesión cerrada exitosamente`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
             resetStore();
             localStorage.removeItem('user');
             router.push('/');
         }
         catch(error){
             console.error('Error al cerrar sesión:', error);
-            alert('Error al cerrar sesión. Por favor, inténtalo de nuevo.');
+            await sweetalert.fire({
+                title: 'Error',
+                text: 'Al cerrar la sesión',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         }
     }
 </script>

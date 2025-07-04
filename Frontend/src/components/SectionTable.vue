@@ -29,21 +29,47 @@
         ListFinances.value.push(finance);
     };
     
-    const handleFinanceDeleted = async (userID: number, description: string, type_finance:string, amount_finance:number) => {
+    const handleFinanceDeleted = async (description: string, type_finance:string, amount_finance:number, financeID:number) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/finances/delete/${userID}/name/${description}`, {
-                method: 'DELETE',
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Finances/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id_finance: financeID,
+                    description_finance: description,
+                }),
             });
             if (response.ok) {
                 await response.json();
-                ListFinances.value = ListFinances.value.filter(finance => finance.description_finance !== description);
-                deleteBalance();
                 await sweetalert.fire({
-                    title: 'Finanza eliminada exitosamente',
+                    title: '¿Seguro que desea eliminar esta finanza?',
                     text: `Descripción: ${description}, Tipo: ${type_finance}, Monto: ${amount_finance}`,
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                });
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                }).then((response) => {
+                    if(response.isConfirmed){
+                        ListFinances.value = ListFinances.value.filter(finance =>
+                            finance.id_finance !== financeID
+                        )
+                        deleteBalance();
+                        sweetalert.fire({
+                            title: 'Finanza eliminada',
+                            text: `Descripción: ${description}, Tipo: ${type_finance}, Monto: ${amount_finance}`,
+                            icon: 'success',
+                        });
+                    }
+                    else {
+                        sweetalert.fire({
+                            title: 'Operación cancelada',
+                            text: 'La finanza no fue eliminada',
+                            icon: 'info',
+                        });
+                    }
+                })
             
             } else {
                 throw new Error(`Error deleting finance`);
@@ -67,7 +93,6 @@
             <table v-if="ListFinances.length > 0" class="border-gray-600 border-1 w-full h-auto overflow-y-auto">
                 <thead class="border-gray-600 border-1 w-full">
                     <tr class="w-full h-10 text-lg font-semibold">
-                        <th class="border-r-2 border-gray-800">ID</th>
                         <th class="border-r-2 border-gray-800">Descripción</th>
                         <th class="border-r-2 border-gray-800">Tipo</th>
                         <th class="border-r-2 border-gray-800">Categoria</th>
@@ -78,7 +103,6 @@
                 </thead>
                 <tbody class="w-full">
                     <tr v-for="finance in ListFinances" :key="finance.id_finance" class="w-full h-10 text-md border-b-2 border-gray-500">
-                        <td class="border-r-2 border-gray-800 text-center">{{ finance.id_finance }}</td>
                         <td class="border-r-2 border-gray-800 text-center">{{ finance.description_finance }}</td>
                         <td class="border-r-2 border-gray-800 text-center">{{ finance.type_finance }}</td>
                         <td class="border-r-2 border-gray-800 text-center">{{ finance.category_finance }}</td>
@@ -87,7 +111,7 @@
                         <td class="pt-2 flex items-center justify-evenly">
                             <DeleteIcons 
                                 class="cursor-pointer hover:stroke-red-500 hover:p-0.5 transition-all"
-                                @click="handleFinanceDeleted(userID, finance.description_finance, finance.type_finance, finance.amount_finance)"
+                                @click="handleFinanceDeleted(finance.description_finance, finance.type_finance, finance.amount_finance, finance.id_finance)"
                             />
                             <ModifiedIcon class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
                             <ViewFinanceIcon class="cursor-pointer hover:stroke-green-500 hover:p-0.5 transition-all"/>
