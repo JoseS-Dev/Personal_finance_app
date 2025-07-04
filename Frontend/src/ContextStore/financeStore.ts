@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia';
 import { ref } from 'vue';
+import confetti from 'canvas-confetti';
 
 export const StoreFinance = defineStore('financeStore', () => {
     const accountBalance = ref(0);
@@ -33,9 +34,8 @@ export const StoreFinance = defineStore('financeStore', () => {
             accountBalance.value += amount_finance.value;
             incomes.value += amount_finance.value;
             meta.value -= amount_finance.value;
-            if(meta.value <= 0) meta.value = 0;
+            if(meta.value < 0) meta.value = 0;
             localStorage.setItem(`incomes_${USERID}`, JSON.stringify(incomes.value));
-            localStorage.setItem(`user`, JSON.stringify(meta.value));
         }
         else if(type_finance.value === 'Gasto') {
             accountBalance.value -= amount_finance.value;
@@ -48,8 +48,17 @@ export const StoreFinance = defineStore('financeStore', () => {
             user.data.meta_user = meta.value;
             localStorage.setItem('user', JSON.stringify(meta.value));
         }
+
+        if(accountBalance.value >= meta.value && meta.value > 0) {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
         // Update local storage
         user.data.account_balance_user = accountBalance.value;
+        user.data.meta_user = meta.value;
         localStorage.setItem('user', JSON.stringify(user));
         saveBalance();
 
@@ -75,10 +84,10 @@ export const StoreFinance = defineStore('financeStore', () => {
                 meta.value = 0;
             }
             meta.value -= amount_finance.value;
-            user.data.meta_user = meta.value;
         }
         // Update local storage
         user.data.account_balance_user = accountBalance.value;
+        user.data.meta_user = meta.value;
         localStorage.setItem('user', JSON.stringify(user));
         saveBalance();
     }

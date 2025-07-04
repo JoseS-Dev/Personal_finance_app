@@ -2,6 +2,7 @@
     import DeleteIcons from '../assets/Icons/DeleteIcons.vue';
     import ModifiedIcon from '../assets/Icons/ModifiedIcon.vue';
     import ViewFinanceIcon from '../assets/Icons/ViewFinanceIcon.vue';
+    import UpdateModal from './UpdateModal.vue';
     import { ref, onMounted } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import FormFr from './FormFr.vue';
@@ -31,15 +32,8 @@
     
     const handleFinanceDeleted = async (description: string, type_finance:string, amount_finance:number, financeID:number) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Finances/delete`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    id_finance: financeID,
-                    description_finance: description,
-                }),
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Finances/delete/${financeID}`, {
+                method: 'DELETE',
             });
             if (response.ok) {
                 await response.json();
@@ -78,6 +72,18 @@
             console.error('Error deleting finance:', error);
         }
     };
+    // Funcion para abir la ventana modal
+    const openModal = () => {
+        const modal = document.getElementById('modal') as HTMLDialogElement;
+        modal.showModal();
+    };
+    // Funcion para cerrar la ventana modal
+    const handleBackdropClick = (event: MouseEvent) => {
+        const modal = document.getElementById('modal') as HTMLDialogElement;
+        if (event.target === modal) {
+            modal.close();
+        }
+    };
     onMounted(() => {
         fetchFinances();
     });
@@ -113,7 +119,7 @@
                                 class="cursor-pointer hover:stroke-red-500 hover:p-0.5 transition-all"
                                 @click="handleFinanceDeleted(finance.description_finance, finance.type_finance, finance.amount_finance, finance.id_finance)"
                             />
-                            <ModifiedIcon class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
+                            <ModifiedIcon @click="openModal()" class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
                             <ViewFinanceIcon class="cursor-pointer hover:stroke-green-500 hover:p-0.5 transition-all"/>
                         </td>
                     </tr>
@@ -124,4 +130,24 @@
             <FormFr @financeAdded="handleFinanceAdded"/>
         </article>
     </section>
+    <dialog id="modal" @click="handleBackdropClick" class="border-2 border-black w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-700 rounded-2xl">
+        <UpdateModal/>
+    </dialog>
 </template>
+
+<style scoped>
+    dialog[open]{
+    animation: openModal 0.5s forwards;
+    }
+    /* Animación para abrir el modal */
+    @keyframes openModal {
+        0% {
+        transform: scale(0.9);
+        opacity: 0;
+        }
+        100% {
+        transform: scale(1);
+        opacity: 1;
+        }
+    }
+</style>

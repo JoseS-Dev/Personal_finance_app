@@ -13,6 +13,7 @@
     })
     const { accountBalance, incomes, expenses, meta } = storeToRefs(useFinanceStore);
     
+    
 </script>
 
 <template>
