@@ -36,12 +36,12 @@ export const SchemaUpdateUser = zod.object({
     account_balance_user: zod.number({
         required_error: "El saldo de la cuenta del usuario es requerido",
         invalid_type_error: "El saldo de la cuenta del usuario debe ser un número"
-    }).positive(),
+    }),
 
     meta_user: zod.number({
         required_error: "La meta del usuario es requerida",
         invalid_type_error: "La meta del usuario debe ser un número"
-    }).positive()
+    })
 })
 
 // Function to validate the user schema

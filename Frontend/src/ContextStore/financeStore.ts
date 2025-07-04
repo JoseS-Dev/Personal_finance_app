@@ -34,13 +34,11 @@ export const StoreFinance = defineStore('financeStore', () => {
             accountBalance.value += amount_finance.value;
             incomes.value += amount_finance.value;
             meta.value -= amount_finance.value;
-            if(meta.value < 0) meta.value = 0;
             localStorage.setItem(`incomes_${USERID}`, JSON.stringify(incomes.value));
         }
         else if(type_finance.value === 'Gasto') {
             accountBalance.value -= amount_finance.value;
             expenses.value += amount_finance.value;
-            if(!expenses.value) expenses.value = 0;
             localStorage.setItem(`expenses_${USERID}`, JSON.stringify(expenses.value));
         }
         else if(type_finance.value === 'Meta'){
@@ -69,14 +67,12 @@ export const StoreFinance = defineStore('financeStore', () => {
         if(type_finance.value === 'Ingreso') {
             accountBalance.value -= amount_finance.value;
             incomes.value -= amount_finance.value;
-            if(incomes.value < 0) incomes.value = 0;
-            if(!meta.value) meta.value = 0;
             localStorage.setItem(`incomes_${USERID}`, JSON.stringify(incomes.value));
         }
         else if(type_finance.value === 'Gasto') {
             accountBalance.value -= amount_finance.value;
             expenses.value -= amount_finance.value;
-            if(expenses.value < 0) expenses.value = 0;
+            meta.value += amount_finance.value;
             localStorage.setItem(`expenses_${USERID}`, JSON.stringify(expenses.value));
         }
         else if(type_finance.value === 'Meta'){
@@ -85,6 +81,10 @@ export const StoreFinance = defineStore('financeStore', () => {
             }
             meta.value -= amount_finance.value;
         }
+        if(accountBalance.value <= 0) accountBalance.value = 0;
+        if(incomes.value <= 0) incomes.value = 0;
+        if(expenses.value <= 0) expenses.value = 0;
+        if(meta.value <= 0) meta.value = 0;
         // Update local storage
         user.data.account_balance_user = accountBalance.value;
         user.data.meta_user = meta.value;
