@@ -12,7 +12,7 @@
     const date_finance = ref(new Date().toISOString().split('T')[0]);
     const financeStore = StoreFinance();
     const emits = defineEmits(['financeAdded']);
-    const { addBalance } = financeStore
+    const { addBalance, accountBalance } = financeStore
 
     // Funcion para mandar el formulario para registrar una finanza
     const submitFinance = async(event:Event) => {
@@ -24,7 +24,17 @@
             category_finance: category_finance.value,
             date_finance: date_finance.value,
         }
-        
+        // Validar que el saldo sea suficiente para registrar un gasto
+        if(accountBalance <= 0 && Type_finance.value === 'Gasto'){
+            await sweetalert.fire({
+                title: 'Saldo insuficiente',
+                text: 'No puedes registrar un gasto si tu saldo es cero o negativo.',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
         try{
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/finances/create/${userID}`, {
                 method: 'POST',
@@ -37,7 +47,6 @@
                 throw new Error('Error al registrar la finanza');
             }
             const data = await response.json();
-            console.log('Finanza registrada:', data);
             localStorage.setItem('finances', JSON.stringify(data));
             console.log(localStorage.getItem('finances'));
             financeStore.type_finance = data.data.type_finance;

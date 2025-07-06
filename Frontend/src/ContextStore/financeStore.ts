@@ -46,6 +46,10 @@ export const StoreFinance = defineStore('financeStore', () => {
             user.data.meta_user = meta.value;
             localStorage.setItem('user', JSON.stringify(meta.value));
         }
+        if(accountBalance.value <= 0) accountBalance.value = 0;
+        if(incomes.value <= 0) incomes.value = 0;
+        if(expenses.value <= 0) expenses.value = 0;
+        if(meta.value <= 0) meta.value = 0;
 
         if(accountBalance.value >= meta.value && meta.value > 0) {
             confetti({
