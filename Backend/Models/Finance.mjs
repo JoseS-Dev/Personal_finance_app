@@ -138,10 +138,10 @@ export class ModelsFinance {
     static async updateFinanceByID({ id_finance,finance }){
         if(!id_finance || !finance) return { error: "ID de finanza o finanza no proporcionados" };
         // Se actualiza la finanza en la base de datos
-        const { name_finance, description_finance, date_finance, type_finance, category_finance, amount_finance } = finance;
+        const { description_finance, date_finance, type_finance, category_finance, amount_finance } = finance;
         const [ financeUpdated ] = await connection.query(
-            `UPDATE register_finance SET name_finance = ?, description_finance = ?, date_finance = ?, type_finance = ?, category_finance = ?, amount_finance = ? WHERE id_finance = ?`,
-            [name_finance, description_finance, date_finance, type_finance, category_finance, amount_finance, id_finance]
+            `UPDATE register_finance SET description_finance = ?, date_finance = ?, type_finance = ?, category_finance = ?, amount_finance = ? WHERE id_finance = ?`,
+            [description_finance, date_finance, type_finance, category_finance, amount_finance, id_finance]
         )
         if(financeUpdated.affectedRows > 0){
             console.log("Finanza actualizada correctamente");

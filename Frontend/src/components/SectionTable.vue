@@ -9,6 +9,7 @@
     import sweetalert from 'sweetalert2';
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const ListFinances = ref<any[]>([]);
+    const selectedFinance = ref<any>(null);
     const financeStore = StoreFinance();
     const { deleteBalance } = financeStore;
     
@@ -73,14 +74,22 @@
         }
     };
     // Funcion para abir la ventana modal
-    const openModal = () => {
+    const openModal = (finance: any) => {
+        selectedFinance.value = finance;
+        console.log('Selected finance:', selectedFinance.value);
         const modal = document.getElementById('modal') as HTMLDialogElement;
-        modal.showModal();
+        if (modal) {
+            modal.showModal();
+        } else {
+            console.error('Modal element not found');
+        }
+
     };
     // Funcion para cerrar la ventana modal
     const handleBackdropClick = (event: MouseEvent) => {
         const modal = document.getElementById('modal') as HTMLDialogElement;
         if (event.target === modal) {
+            selectedFinance.value = null;
             modal.close();
         }
     };
@@ -119,7 +128,7 @@
                                 class="cursor-pointer hover:stroke-red-500 hover:p-0.5 transition-all"
                                 @click="handleFinanceDeleted(finance.description_finance, finance.type_finance, finance.amount_finance, finance.id_finance)"
                             />
-                            <ModifiedIcon @click="openModal()" class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
+                            <ModifiedIcon @click="openModal(finance)" class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
                             <ViewFinanceIcon class="cursor-pointer hover:stroke-green-500 hover:p-0.5 transition-all"/>
                         </td>
                     </tr>
@@ -131,7 +140,7 @@
         </article>
     </section>
     <dialog id="modal" @click="handleBackdropClick" class="border-2 border-black w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-700 rounded-2xl">
-        <UpdateModal/>
+        <UpdateModal v-if="selectedFinance" :finance="selectedFinance"/>
     </dialog>
 </template>
 
