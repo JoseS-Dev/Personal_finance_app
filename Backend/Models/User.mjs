@@ -1,5 +1,5 @@
 import { connection } from "./db/connection.mjs";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 
 export class ModelsUser {
@@ -20,8 +20,8 @@ export class ModelsUser {
                 // Si no esta registrado, se inserta el nuevo usuario
                 const hashedPassword = await bcrypt.hash(password_user, 10);
                 const [newUser] = await connection.query(
-                    `INSERT INTO register_user (name_user, lastName_user, email_user, password_user) VALUES (?, ?, ?, ?)`,
-                    [name_user, lastName_user, email_user, hashedPassword]
+                    `INSERT INTO register_user (name_user, lastName_user, email_user, password_user, is_new) VALUES (?, ?, ?, ?, ?)`,
+                    [name_user, lastName_user, email_user, hashedPassword, true]
                 );
                 if (newUser.affectedRows > 0){
                     console.log("Usuario registrado correctamente.");
@@ -95,6 +95,11 @@ export class ModelsUser {
                 [0, userData.id_user]
             )
             if(LogoutUser.affectedRows <= 0) return { message: "Error al desloguear el usuario." };
+            // Si cierra sesión automaticamente, se quita que es nuevo
+            await connection.query(
+                `UPDATE register_user SET is_new = ? WHERE id_user = ?`,
+                [false, userData.id_user]
+            )
             console.log("Usuario deslogueado correctamente.");
             return userData;
         }

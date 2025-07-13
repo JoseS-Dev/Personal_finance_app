@@ -6,7 +6,7 @@
     const router = useRouter();
     const email_user = ref('');
     const password_user = ref('');
-    const newUser = true
+    
 
     // Function to handle the login form submission
     const handleLogin = async (event: Event) => {
@@ -25,7 +25,7 @@
             })
             if(!response.ok) throw new Error('Error al iniciar sesión');
             const user = await response.json();
-            if(user.data.account_balance_user >= 0 && user.data.meta_user >= 0){
+            if(user.data.account_balance_user > 0 && user.data.meta_user > 0){
                 localStorage.setItem('user', JSON.stringify(user));
                 await sweetalert.fire({
                     title: 'Éxito',

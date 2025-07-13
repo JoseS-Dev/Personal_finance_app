@@ -5,7 +5,7 @@ import Register from '../Pages/Register.vue';
 import Login from '../Pages/Login.vue';
 import Reportes from '../Pages/Admin.vue';
 import Historial from '../Pages/Reportes.vue';
-import path from 'path';
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BACKEND_URL),
@@ -25,12 +25,6 @@ const router = createRouter({
             name: 'Home',
             component: Home
         },
-        /*
-        {
-            path: '/admin',
-            name: 'Admin',
-            component: Admin
-        },*/
         {
             path: '/admin/reportes',
             name: 'Reportes',

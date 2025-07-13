@@ -3,7 +3,7 @@
     import { ref } from 'vue';
 
     const showManualTooltip = ref(false);
-    const newUser = ref(true);
+    const newUser = ref(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new || false);
     const showManualTooltip2 = ref(false);
     const showManualTooltip3 = ref(false);
     const showManualTooltip4 = ref(false);
