@@ -9,13 +9,13 @@
                 <a href="/manual" class="hover:text-green-400 transition-colors outline-none">Manual</a>
             </li>
             <li class="text-md font-semibold tracking-wider">
-                <a href="admin/reportes" class="hover:text-green-400 transition-colors outline-none">Reporte</a>
+                <a href="/admin/reportes" class="hover:text-green-400 transition-colors outline-none">Reporte</a>
             </li>
             <li class="text-md font-semibold tracking-wider">
                 <span id="Ventana_modal" class="cursor-pointer hover:text-green-400 transition-colors outline-none">Moneda</span>
             </li>
             <li class="text-md font-semibold tracking-wider">
-                <span id="Historial_modal" class="cursor-pointer hover:text-green-400 transition-colors outline-none">Historial</span>
+                <a href="/admin/historial" class="hover:text-green-400 transition-colors outline-none">Historial</a>
             </li>
         </ul>
         <LogoutIcon/>

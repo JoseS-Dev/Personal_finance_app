@@ -32,7 +32,7 @@
                 confirmButtonText: 'Aceptar'
             });
             localStorage.setItem('user', JSON.stringify(user));
-            router.push('/admin');
+            router.push('/admin/reportes');
         }
         catch(error){
             console.error('Error al entrar:', error);

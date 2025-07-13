@@ -6,6 +6,7 @@
     const router = useRouter();
     const email_user = ref('');
     const password_user = ref('');
+    const newUser = true
 
     // Function to handle the login form submission
     const handleLogin = async (event: Event) => {
@@ -32,7 +33,7 @@
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 });
-                router.push('/admin');
+                router.push('/admin/reportes');
             }
             else{
                 localStorage.setItem('user', JSON.stringify(user));

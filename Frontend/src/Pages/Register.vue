@@ -36,7 +36,7 @@
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             });
-            router.push('/');
+            router.push('/login');
             
         }
         catch(error){
