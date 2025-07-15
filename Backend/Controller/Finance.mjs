@@ -139,9 +139,9 @@ export class ControllerFinance {
 
     // Obtener el mes y el año de una finanza
     getByDate = async(req, res) => {
-       const { date_finance } = req.params;
+       const { date_finance, id_user } = req.params;
        try{
-            const financeDate = await this.ModelsFinance.getByDate({date_finance});
+            const financeDate = await this.ModelsFinance.getByDate({date_finance,id_user});
             if(financeDate && financeDate.length > 0){
                 return res.status(200).json({
                         message: "Finanzas obtenidas correctamente",

@@ -25,7 +25,7 @@
             date_finance: date_finance.value,
         }
         // Validar que el saldo sea suficiente para registrar un gasto
-        if(accountBalance <= 0 && Type_finance.value === 'Gasto'){
+        if(accountBalance < 0 && Type_finance.value === 'Gasto'){
             await sweetalert.fire({
                 title: 'Saldo insuficiente',
                 text: 'No puedes registrar un gasto si tu saldo es cero o negativo.',

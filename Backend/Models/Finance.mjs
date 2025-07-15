@@ -60,11 +60,11 @@ export class ModelsFinance {
     }
 
     // Obtener el mes y el año de la finanza
-    static async getByDate({date_finance}){
+    static async getByDate({date_finance, id_user}){
         if(date_finance){
             const [FinancesDate] = await connection.query(
-                `SELECT MONTH(date_finance) AS mes, YEAR(date_finance) as Año, type_finance,amount_finance FROM register_finance WHERE MONTH(date_finance) = MONTH(?) AND YEAR(date_finance) = YEAR(?)`,
-                [date_finance, date_finance]
+                `SELECT MONTH(date_finance) AS mes, YEAR(date_finance) as Año, type_finance,amount_finance FROM register_finance WHERE MONTH(date_finance) = MONTH(?) AND YEAR(date_finance) = YEAR(?) AND id_user = ?`,
+                [date_finance, date_finance, id_user]
             )
             if(FinancesDate.length > 0){
                 console.log("Fechas encontradas exitosamente");

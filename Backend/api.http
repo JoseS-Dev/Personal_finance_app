@@ -51,7 +51,7 @@ GET http://localhost:5000/Finances/type/Ingreso
 GET http://localhost:5000/Finances/category/Servicios
 
 ### Get a specific finance for date
-GET http://localhost:5000/Finances/date/2023-10-01
+GET http://localhost:5000/Finances/date/2025-07-01/8
 
 ### Create a new finance record
 POST http://localhost:5000/Finances/create/1

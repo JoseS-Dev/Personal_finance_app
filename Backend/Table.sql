@@ -6,7 +6,7 @@ CREATE TABLE register_user(
     password_user VARCHAR(255) NOT NULL,
     account_balance_user DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     meta_user DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    is_new
+    is_new BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE login_users(

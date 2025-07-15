@@ -2,9 +2,13 @@
     import FormFr from './FormFr.vue';
     import Graphics from './Graphics.vue';
     import { MONTHS, YEARS } from '../Utils';
-    import { ref, computed } from 'vue';
+    import { ref, computed, watch } from 'vue';
     const month_select = ref(MONTHS[new Date().getMonth()]);
     const year_select = ref('2025');
+    const user = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
+    let expense_month = ref(0);
+    let income_month = ref(0);
+
 
     const formattedDate = computed(() => {
         if(!month_select.value || !year_select.value) {
@@ -14,8 +18,55 @@
         const date = new Date(`${year_select.value}-${monthIndex}-01`);
         return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
     })
-    console.log(formattedDate.value);
     
+    // Function que llama a la api para obtener el mes y el año seleccionados
+    const fetchDataForSelectedMonth = async () => {
+        if(!formattedDate.value) {
+            console.error('Invalid date format');
+            return;
+        }
+        try{
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Finances/date/${formattedDate.value}/${user}`);
+            if(!response.ok) throw new Error('Network response was not ok');
+            const finances = await response.json();
+            console.log('Finances for the selected month:', finances);
+            // Obtenemos la data y la procesamos para obtener los gastos y ingresos de ese mes
+            finances.data.forEach((finance: any) => {
+                if(finance.type_finance === 'Ingreso') {
+                    income_month.value += finance.amount_finance;
+                } else if(finance.type_finance === 'Gasto') {
+                    expense_month.value += finance.amount_finance;
+                }
+            });
+            if(parseInt(year_select.value) < 2025) {
+                income_month.value = 0;
+                expense_month.value = 0;
+            }
+            console.log('Expenses for the month:', expense_month);
+            console.log('Income for the month:', income_month);
+        }
+        catch(error) {
+            console.error('Error fetching data:', error);
+        }
+        finally {
+
+        }
+    }
+    console.log('income_month:', income_month);
+    console.log('expense_month:', expense_month);
+
+    watch([month_select, year_select], () => {
+        fetchDataForSelectedMonth();
+    }, { immediate: true });
+
+    const handleFinanceAdded = (newFinance: any) => {
+        if (newFinance.type_finance === 'Ingreso') {
+            income_month.value += newFinance.amount_finance;
+        } else if (newFinance.type_finance === 'Gasto') {
+            expense_month.value += newFinance.amount_finance;
+        }
+    }
+
 </script>
 
 <template>
@@ -39,10 +90,13 @@
                     </select>
                 </div>
             </div>
-            <Graphics/>
+            <div v-if="income_month == 0 || expense_month == 0" class="flex items-center justify-center h-full">
+                <p class="text-2xl font-semibold">Registre sus primeros Ingresos o gastos para mostrar las graficas</p>
+            </div>
+            <Graphics v-else :incomes="income_month" :expenses="expense_month"/>
         </article>
         <article class="w-1/4 h-full p-3 flex flex-col items-center">
-            <FormFr/>
+            <FormFr @financeAdded="handleFinanceAdded"/>
         </article>
     </section>
 </template>
