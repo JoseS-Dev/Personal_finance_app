@@ -35,6 +35,7 @@
             localStorage.removeItem('user');
             localStorage.removeItem('login');
             localStorage.removeItem('show1');
+            localStorage.removeItem('selectedCurrency');
             router.push('/');
         }
         catch(error){

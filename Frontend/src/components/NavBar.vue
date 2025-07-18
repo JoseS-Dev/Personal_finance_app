@@ -9,6 +9,21 @@
     const showManualTooltip4 = ref(false);
     const showManualTooltip5 = ref(false);
 
+    const showCurrencyDropdown = ref(false);
+    const selectedCurrency = ref('Moneda');
+
+    const currencies = [
+        { name: 'Dólares', value: 'USD' },
+        { name: 'Euros', value: 'EUR' },
+        { name: 'Bolívares', value: 'VES' }
+    ];
+
+    function selectCurrency(currency: string) {
+       
+        localStorage.setItem('selectedCurrency', currency);
+        showCurrencyDropdown.value = false;
+    }
+
     const show1 = JSON.parse(localStorage.getItem('show1') || 'false');
 
     if (newUser.value && show1 === false) {
@@ -70,9 +85,20 @@
                 </div>
             </li>
             <li class="text-md font-semibold tracking-wider relative">
-                <span id="Ventana_modal"
-                      :class="[showManualTooltip3 && newUser ? 'border-5 border-green-500 rounded-lg' : '', 'cursor-pointer hover:text-green-400 transition-colors outline-none']"
-                >Moneda</span>
+                <span
+                    id="Ventana_modal"
+                    :class="[showManualTooltip3 && newUser ? 'border-5 border-green-500 rounded-lg' : '', 'cursor-pointer hover:text-green-400 transition-colors outline-none']"
+                    @click="showCurrencyDropdown = !showCurrencyDropdown"
+                >{{ selectedCurrency }}</span>
+                <!-- Dropdown de monedas -->
+                <div v-if="showCurrencyDropdown" class="absolute left-1/2 -translate-x-1/4 top-full mt-2 bg-white text-gray-800 rounded shadow-lg z-50 w-40">
+                    <ul>
+                        <li v-for="currency in currencies" :key="currency.value" @click="selectCurrency(currency.name)" class="px-4 py-2 hover:bg-green-100 cursor-pointer">
+                            {{ currency.name }}
+                        </li>
+                    </ul>
+                </div>
+                <!-- Tooltip original -->
                 <div v-if="showManualTooltip3 && newUser">
                     <!-- Overlay bloquea la página -->
                     <div class="fixed inset-0 bg-opacity-40 z-50"></div>
