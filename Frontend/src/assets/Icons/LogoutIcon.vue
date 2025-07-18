@@ -33,6 +33,8 @@
             });
             resetStore();
             localStorage.removeItem('user');
+            localStorage.removeItem('login');
+            localStorage.removeItem('show1');
             router.push('/');
         }
         catch(error){

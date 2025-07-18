@@ -9,19 +9,18 @@
     const showManualTooltip4 = ref(false);
     const showManualTooltip5 = ref(false);
 
-    // Mostrar el tooltip solo una vez si newUser es true
-    if (newUser.value) {
+    const show1 = JSON.parse(localStorage.getItem('show1') || 'false');
+
+    if (newUser.value && show1 === false) {
         showManualTooltip.value = true;
-        
     }
 
     function closeManualTooltip5() {
         showManualTooltip5.value = false;
-        newUser.value = false; // Cambia newUser a false para no mostrar más tooltips
+        newUser.value = false;
+        localStorage.clear(); // Borra todo el localStorage al cerrar sesión
     }
-        
-        
-       function closeManualTooltip() {
+    function closeManualTooltip() {
         showManualTooltip.value = false;
         showManualTooltip2.value = true;
     }
@@ -36,6 +35,7 @@
     function closeManualTooltip4() {
         showManualTooltip4.value = false;
         showManualTooltip5.value = true;
+        localStorage.setItem('show1', JSON.stringify(true));
     }
 </script>
 
