@@ -36,6 +36,7 @@
             localStorage.removeItem('login');
             localStorage.removeItem('show1');
             localStorage.removeItem('selectedCurrency');
+            localStorage.removeItem('bcvPrice');
             router.push('/');
         }
         catch(error){
