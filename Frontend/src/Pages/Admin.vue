@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar.vue';
     import { ref } from 'vue';
 
     
+ 
     const showWelcome = ref(false);
 
 const login = JSON.parse(localStorage.getItem('login') || 'false');
@@ -17,6 +18,8 @@ const closeWelcome = () => {
     showWelcome.value = false;
     localStorage.setItem('login', JSON.stringify(true));
 };
+;
+
 </script>
 
 

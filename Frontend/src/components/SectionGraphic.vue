@@ -34,6 +34,9 @@ watch([showManualTip1, showManualTip2, showManualTip3], ([tip1, tip2, tip3]) => 
 watch(show4, (val) => {
   localStorage.setItem('show4', JSON.stringify(val));
 });
+  watch(show3, (val) => {
+  localStorage.setItem('show1', JSON.stringify(val));
+});
 
 // Function que llama a la api para obtener el mes y el año seleccionados
 const fetchDataForSelectedMonth = async () => {
@@ -94,7 +97,7 @@ const handleFinanceAdded = (newFinance: any) => {
                 <h3 class="text-2xl tracking-wide font-semibold">Estadisticas del {{ month_select }} del {{ year_select
                     }}</h3>
                 <div class=" w-1/4 h-10 flex items-center justify-between gap-1.5">
-                    <div v-if="!showManualTip1 && show2 && isNewUser === 1"
+                    <div v-if="!showManualTip1 && show2 && isNewUser === 1 && !show3"
                         class="absolute left-148 top-63 bg-green-500 text-white px-1 py-2 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
                         <!-- Permitir interacción solo en este span -->
                         <span>Selecciona el mes que desee visualizar.</span>
@@ -113,19 +116,19 @@ const handleFinanceAdded = (newFinance: any) => {
                     </select>
                 </div>
 
-                <div v-if="!showManualTip2 && show2 && isNewUser === 1"
+                <div v-if="!showManualTip2 && show2 && isNewUser === 1 && !show3"
                     class="absolute right-30 top-63 bg-green-500 text-white px-1 py-2 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
                     
                     <span>Selecciona el año que desee visualizar.</span>
                     <span @click="showManualTip2 = true" class="cursor-pointer text-xs mt-1 z-50 pointer-events-auto">(Haz clic para cerrar)</span>
                 </div>
             </div>
-            <div v-if="income_month == 0 || expense_month == 0" class="flex items-center justify-center h-full">
+            <div v-if="income_month == 0 || expense_month == 0" class="flex items-center justify-center h-full" :class="{'border-5 border-green-500': show2 && !show3 && isNewUser === 1}">
                 <p class="text-2xl font-semibold">Registre sus primeros Ingresos o gastos para mostrar las graficas</p>
             </div>
             <Graphics :class="show2 && !show3 && isNewUser === 1 ? 'border-[5px] border-green-500 rounded-2xl' : 'bg-white'" v-else
                 :incomes="income_month" :expenses="expense_month" />
-            <div v-if="!showManualTip3 && show2 && isNewUser === 1"
+            <div v-if="!showManualTip3 && show2 && isNewUser === 1 && !show3"
                 class="absolute right-10 top-155 bg-green-500 text-white px-1 py-4 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
                 <span>Área de gráficos, recopila la información registrada de tus gastos y la analiza.</span>
                 <span @click="showManualTip3 = true" class="cursor-pointer text-xs mt-1 z-50 pointer-events-auto">(Haz clic para cerrar)</span>

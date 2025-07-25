@@ -5,7 +5,8 @@
     import GoalIcons from '../assets/Icons/GoalIcons.vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import { storeToRefs } from 'pinia';
-    import { onMounted } from 'vue';
+    import { onMounted, ref, computed, watch } from 'vue';
+    
     const useFinanceStore = StoreFinance();
     const { initializeStore } = useFinanceStore;
     onMounted(() => {
@@ -13,7 +14,6 @@
     })
     const { accountBalance, incomes, expenses, meta } = storeToRefs(useFinanceStore);
 
-    import { ref, computed } from 'vue';
     const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
     const bcvPrice = ref(Number(localStorage.getItem('bcvPrice')) || 1);
     const show1 = ref(JSON.parse(localStorage.getItem('show1') || 'false'));
@@ -24,13 +24,18 @@
     window.addEventListener('storage', () => {
         currency.value = localStorage.getItem('selectedCurrency') || 'USD';
         bcvPrice.value = Number(localStorage.getItem('bcvPrice')) || 1;
+        show1.value = JSON.parse(localStorage.getItem('show1') || 'false');
     });
+    watch(show1, (val) => {
+  localStorage.setItem('show1', JSON.stringify(val));
+});
     // Función para cerrar el mensaje verde
     const closeInfoMessage = () => {
         show2.value = true;
         localStorage.setItem('show2', JSON.stringify(true));
         
     };
+   
 
     const displayAccountBalance = computed(() => currency.value === 'VES' ? Number(accountBalance.value) * bcvPrice.value : Number(accountBalance.value));
     const displayIncomes = computed(() => currency.value === 'VES' ? Number(incomes.value) * bcvPrice.value : Number(incomes.value));
