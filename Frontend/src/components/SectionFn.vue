@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
     import AccountAtIcon from '../assets/Icons/AccountAtIcon.vue';
     import IncomeIcon from '../assets/Icons/IncomeIcon.vue';
@@ -16,46 +17,55 @@
     import { ref, computed } from 'vue';
     const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
     const bcvPrice = ref(Number(localStorage.getItem('bcvPrice')) || 1);
+    const show1 = ref(JSON.parse(localStorage.getItem('show1') || 'false'));
+    const newUser = ref(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new || false);
+    const show2 = ref(JSON.parse(localStorage.getItem('show2') || 'false'));
 
     // Actualizar cuando cambie localStorage
     window.addEventListener('storage', () => {
         currency.value = localStorage.getItem('selectedCurrency') || 'USD';
         bcvPrice.value = Number(localStorage.getItem('bcvPrice')) || 1;
     });
+    // Función para cerrar el mensaje verde
+    const closeInfoMessage = () => {
+        show2.value = true;
+        localStorage.setItem('show2', JSON.stringify(true));
+        
+    };
 
     const displayAccountBalance = computed(() => currency.value === 'VES' ? Number(accountBalance.value) * bcvPrice.value : Number(accountBalance.value));
     const displayIncomes = computed(() => currency.value === 'VES' ? Number(incomes.value) * bcvPrice.value : Number(incomes.value));
     const displayExpenses = computed(() => currency.value === 'VES' ? Number(expenses.value) * bcvPrice.value : Number(expenses.value));
     const displayMeta = computed(() => currency.value === 'VES' ? Number(meta.value) * bcvPrice.value : Number(meta.value));
     const currencySymbol = computed(() => currency.value === 'VES' ? 'Bs.' : '$');
-
+   
 
 </script>
 
 <template>
-    <section class="w-full h-1/4 flex items-center justify-around">
-        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-green-400  hover:text-white transition-colors">
+    <section class='w-full h-1/4 flex items-center justify-around'>
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-green-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
             <AccountAtIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Cuenta Actual</span>
                 <span class="text-2xl font-bold">{{ displayAccountBalance }} {{ currencySymbol }}</span>
             </div>
         </article>
-        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400  hover:text-white transition-colors">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
             <IncomeIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Ingresos</span>
                 <span class="text-2xl  font-bold">{{ displayIncomes }} {{ currencySymbol }}</span>
             </div>
         </article>
-        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400  hover:text-white transition-colors">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
             <ExpenseIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Gastos</span>
                 <span class="text-2xl text-red-600 font-bold">{{ displayExpenses }} {{ currencySymbol }}</span>
             </div>
         </article>
-        <article class="cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400  hover:text-white transition-colors">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
             <GoalIcons/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Meta</span>
@@ -63,9 +73,23 @@
             </div>
         </article>
     </section>
+    <!-- Overlay bloquea la página mientras el mensaje está abierto -->
+    <div v-if="show1 && !show2 && newUser.value === 1">
+        <div class="fixed inset-0  z-40"></div>
+        <div class="w-full flex justify-center mt-4 fixed top-1/3 left-0 z-50">
+            <div class="bg-green-600 text-white px-6 py-3 rounded shadow-lg font-semibold text-center relative" style="max-width:600px;">
+                Recopilacion de datos registrados, cuentas actuales, ingresos, gastos y metas
+                <span @click="closeInfoMessage" class="absolute right-4 bottom-2 text-white text-xs cursor-pointer bg-green-600 px-2 py-1 rounded">(Haz clic para cerrar)</span>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>
+    .article-blur {
+        border: 5px solid green;
+        pointer-events: none;
+    }
     article:nth-child(1):hover svg{
         stroke: #4F8B31;
         background-color: #fff;

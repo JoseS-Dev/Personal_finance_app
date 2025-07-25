@@ -67,14 +67,19 @@ function selectCurrency(currency: string) {
     window.location.reload(); // Recarga la página para actualizar la moneda
 }
 
-const show1 = JSON.parse(localStorage.getItem('show1') || 'false');
+const show1 = JSON.parse(localStorage.getItem('show1') || ' false');
 
-if (newUser.value && show1 === false) {
+if (newUser.value === 1 && show1 === false) {
     showManualTooltip.value = true;
 }
+if(newUser.value === 0){
+    localStorage.setItem('show1', JSON.stringify(true));
+}
+ // Elimina el valor de 'show1' para que no se muestre el tooltip nuevamente
 
 function closeManualTooltip5() {
     showManualTooltip5.value = false;
+    localStorage.setItem('show1', JSON.stringify(true));
 
 }
 function closeManualTooltip() {
@@ -92,7 +97,7 @@ function closeManualTooltip3() {
 function closeManualTooltip4() {
     showManualTooltip4.value = false;
     showManualTooltip5.value = true;
-    localStorage.setItem('show1', JSON.stringify(true));
+   
 }
 </script>
 
