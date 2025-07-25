@@ -69,11 +69,11 @@
             barChartInstance = new Chart(barChart.value, {
                 type: 'bar',
                 data: {
-                    labels: ['Ingresos', 'Gastos'],
+                    labels: ['Ingresos', 'Gastos', 'Saldo Actual', 'Meta'],
                     datasets: [{
                         label: 'Ingresos y Gastos',
-                        data: [incomes, expenses],
-                        backgroundColor: [ '#F44336','#4CAF50'],
+                        data: [incomes, expenses, accountBalance, meta],
+                        backgroundColor: [ '#4CAF50','#F44336', '#2196F3', '#FF9800'],
                     }]
                 },
                 options: {
