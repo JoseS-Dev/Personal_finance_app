@@ -37,6 +37,10 @@
             localStorage.removeItem('show1');
             localStorage.removeItem('selectedCurrency');
             localStorage.removeItem('bcvPrice');
+            localStorage.removeItem('show2');
+            localStorage.removeItem('show3');
+            localStorage.removeItem('show4');
+            localStorage.removeItem('show5');
             router.push('/');
         }
         catch(error){

@@ -3,15 +3,23 @@
     import ModifiedIcon from '../assets/Icons/ModifiedIcon.vue';
     import ViewFinanceIcon from '../assets/Icons/ViewFinanceIcon.vue';
     import UpdateModal from './UpdateModal.vue';
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, watch } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import FormFr from './FormFr.vue';
     import sweetalert from 'sweetalert2';
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
+    const isNewUser = Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0;
     const ListFinances = ref<any[]>([]);
     const selectedFinance = ref<any>(null);
     const financeStore = StoreFinance();
     const { deleteBalance } = financeStore;
+
+    const show4 = ref(JSON.parse(localStorage.getItem('show4') || 'false'));
+    const show5 = ref(JSON.parse(localStorage.getItem('show5') || 'false'));
+    
+    watch(show5, (val) => {
+        localStorage.setItem('show5', JSON.stringify(val));
+    });
     
     const fetchFinances = async () => {
         try {
@@ -100,12 +108,13 @@
 </script>
 
 <template>
-    <section class="w-full h-2/3 flex items-center justify-around">
+    <div v-if="show4 && !show5 && isNewUser === 1" class="fixed inset-0 z-40  pointer-events-auto"></div>
+    <section class="w-full h-2/3 flex items-center justify-around" :class="{ 'pointer-events-none': show4 && !show5 && isNewUser === 1 }">
         <article class="w-4/5 h-full p-3 flex flex-col gap-2.5">
-            <div v-if="ListFinances.length === 0" class="flex items-center justify-center h-full">
+            <div v-if="ListFinances.length === 0" class="flex items-center justify-center h-full" :class="{ 'border-2 border-green-500': show4 && !show5 && isNewUser === 1 }">
                 <h3 class="text-2xl font-semibold tracking-wide">No hay Finanzas registradas</h3>
             </div>
-            <table v-if="ListFinances.length > 0" class="border-gray-600 border-1 w-full h-auto overflow-y-auto">
+            <table v-if="ListFinances.length > 0" :class="['border-gray-600 border-1 w-full h-auto overflow-y-auto', show4 && !show5 ? 'border-green-500 border-5 border-radius-10 ' : '']">
                 <thead class="border-gray-600 border-1 w-full">
                     <tr class="w-full h-10 text-lg font-semibold">
                         <th class="border-r-2 border-gray-800">Descripción</th>
@@ -135,6 +144,12 @@
                 </tbody>
             </table>
         </article>
+        <div v-if="show4 && !show5 && isNewUser === 1" class="absolute top-45 left-110 z-50 pointer-events-auto">
+            <div class="bg-green-500 text-white px-1 py-2 rounded shadow-lg text-sm flex flex-col items-start gap-1 pointer-events-auto" style="min-width:220px;">
+                <span>Aqui se mostrara el historial de ingresos financieros</span>
+                <span @click="show5 = true" class="text-xs ml-2 cursor-pointer pointer-events-auto">(Haz clic para cerrar)</span>
+            </div>
+        </div>
         <article class="w-1/4 h-full p-3 flex flex-col items-center">
             <FormFr @financeAdded="handleFinanceAdded"/>
         </article>

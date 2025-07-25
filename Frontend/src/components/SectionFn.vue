@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
     import AccountAtIcon from '../assets/Icons/AccountAtIcon.vue';
     import IncomeIcon from '../assets/Icons/IncomeIcon.vue';
@@ -18,9 +17,9 @@
     const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
     const bcvPrice = ref(Number(localStorage.getItem('bcvPrice')) || 1);
     const show1 = ref(JSON.parse(localStorage.getItem('show1') || 'false'));
-    const newUser = ref(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new || false);
+    const newUser = Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0;
     const show2 = ref(JSON.parse(localStorage.getItem('show2') || 'false'));
-
+    console.log('New user status:', newUser);
     // Actualizar cuando cambie localStorage
     window.addEventListener('storage', () => {
         currency.value = localStorage.getItem('selectedCurrency') || 'USD';
@@ -44,28 +43,28 @@
 
 <template>
     <section class='w-full h-1/4 flex items-center justify-around'>
-        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-green-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-green-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <AccountAtIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Cuenta Actual</span>
                 <span class="text-2xl font-bold">{{ displayAccountBalance }} {{ currencySymbol }}</span>
             </div>
         </article>
-        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <IncomeIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Ingresos</span>
                 <span class="text-2xl  font-bold">{{ displayIncomes }} {{ currencySymbol }}</span>
             </div>
         </article>
-        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <ExpenseIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Gastos</span>
                 <span class="text-2xl text-red-600 font-bold">{{ displayExpenses }} {{ currencySymbol }}</span>
             </div>
         </article>
-        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400 hover:text-white transition-colors', show1 && !show2 && newUser.value === 1 ? 'article-blur' : '']">
+        <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <GoalIcons/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Meta</span>
@@ -74,7 +73,7 @@
         </article>
     </section>
     <!-- Overlay bloquea la página mientras el mensaje está abierto -->
-    <div v-if="show1 && !show2 && newUser.value === 1">
+    <div v-if="show1 && !show2 && newUser === 1">
         <div class="fixed inset-0  z-40"></div>
         <div class="w-full flex justify-center mt-4 fixed top-1/3 left-0 z-50">
             <div class="bg-green-600 text-white px-6 py-3 rounded shadow-lg font-semibold text-center relative" style="max-width:600px;">
