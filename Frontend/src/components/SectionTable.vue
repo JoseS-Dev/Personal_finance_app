@@ -111,41 +111,41 @@
     <div v-if="show4 && !show5 && isNewUser === 1" class="fixed inset-0 z-40  pointer-events-auto"></div>
     <section class="w-full h-2/3 flex items-center justify-around" :class="{ 'pointer-events-none': show4 && !show5 && isNewUser === 1 }">
         <article class="w-4/5 h-full p-3 flex flex-col gap-2.5">
-            <div v-if="ListFinances.length === 0" class="flex items-center justify-center h-full" :class="{ 'border-2 border-green-500': show4 && !show5 && isNewUser === 1 }">
+            <div v-if="ListFinances.length === 0" class="flex items-center justify-center h-full" :class="{ 'border-2 border-green-600': show4 && !show5 && isNewUser === 1 }">
                 <h3 class="text-2xl font-semibold tracking-wide">No hay Finanzas registradas</h3>
             </div>
-            <table v-if="ListFinances.length > 0" :class="['border-gray-600 border-1 w-full h-auto overflow-y-auto', show4 && !show5 ? 'border-green-500 border-5 border-radius-10 ' : '']">
+            <table v-if="ListFinances.length > 0" :class="['border-gray-600 border-1 w-full h-auto overflow-y-auto', show4 && !show5 ? 'border-green-600 border-5 border-radius-10 ' : '']">
                 <thead class="border-gray-600 border-1 w-full">
                     <tr class="w-full h-10 text-lg font-semibold">
-                        <th class="border-r-2 border-gray-800">Descripción</th>
-                        <th class="border-r-2 border-gray-800">Tipo</th>
-                        <th class="border-r-2 border-gray-800">Categoria</th>
-                        <th class="border-r-2 border-gray-800">Fecha</th>
-                        <th class="border-r-2 border-gray-800">Monto</th>
-                        <th class="border-r-2 border-gray-800">Acciones</th>
+                        <th class="border-r-2 border-gray-600">Descripción</th>
+                        <th class="border-r-2 border-gray-600">Tipo</th>
+                        <th class="border-r-2 border-gray-600">Categoria</th>
+                        <th class="border-r-2 border-gray-600">Fecha</th>
+                        <th class="border-r-2 border-gray-600">Monto</th>
+                        <th class="border-r-2 border-gray-600">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="w-full">
                     <tr v-for="finance in ListFinances" :key="finance.id_finance" class="w-full h-10 text-md border-b-2 border-gray-500">
-                        <td class="border-r-2 border-gray-800 text-center">{{ finance.description_finance }}</td>
-                        <td class="border-r-2 border-gray-800 text-center">{{ finance.type_finance }}</td>
-                        <td class="border-r-2 border-gray-800 text-center">{{ finance.category_finance }}</td>
-                        <td class="border-r-2 border-gray-800 text-center">{{ finance.date_finance }}</td>
-                        <td class="border-r-2 border-gray-800 text-center">{{ finance.amount_finance }}</td>
+                        <td class="border-r-2 border-gray-600 text-center">{{ finance.description_finance }}</td>
+                        <td class="border-r-2 border-gray-600 text-center">{{ finance.type_finance }}</td>
+                        <td class="border-r-2 border-gray-600 text-center">{{ finance.category_finance }}</td>
+                        <td class="border-r-2 border-gray-600 text-center">{{ finance.date_finance }}</td>
+                        <td class="border-r-2 border-gray-600 text-center">{{ finance.amount_finance }}</td>
                         <td class="pt-2 flex items-center justify-evenly">
                             <DeleteIcons 
                                 class="cursor-pointer hover:stroke-red-500 hover:p-0.5 transition-all"
                                 @click="handleFinanceDeleted(finance.description_finance, finance.type_finance, finance.amount_finance, finance.id_finance)"
                             />
                             <ModifiedIcon @click="openModal(finance)" class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
-                            <ViewFinanceIcon class="cursor-pointer hover:stroke-green-500 hover:p-0.5 transition-all"/>
+                            <ViewFinanceIcon class="cursor-pointer hover:stroke-green-700 hover:p-0.5 transition-all"/>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </article>
         <div v-if="show4 && !show5 && isNewUser === 1" class="absolute top-45 left-110 z-50 pointer-events-auto">
-            <div class="bg-green-500 text-white px-1 py-2 rounded shadow-lg text-sm flex flex-col items-start gap-1 pointer-events-auto" style="min-width:220px;">
+            <div class="bg-green-600 text-white px-1 py-2 rounded shadow-lg text-sm flex flex-col items-start gap-1 pointer-events-auto" style="min-width:220px;">
                 <span>Aqui se mostrara el historial de ingresos financieros</span>
                 <span @click="show5 = true" class="text-xs ml-2 cursor-pointer pointer-events-auto">(Haz clic para cerrar)</span>
             </div>
@@ -154,7 +154,7 @@
             <FormFr @financeAdded="handleFinanceAdded"/>
         </article>
     </section>
-    <dialog id="modal" @click="handleBackdropClick" class="border-2 border-black w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-700 rounded-2xl">
+    <dialog id="modal" @click="handleBackdropClick" class="w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-600 rounded-2xl">
         <UpdateModal v-if="selectedFinance" :finance="selectedFinance"/>
     </dialog>
 </template>

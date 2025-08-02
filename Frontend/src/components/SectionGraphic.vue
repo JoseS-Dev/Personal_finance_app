@@ -98,18 +98,18 @@ const handleFinanceAdded = (newFinance: any) => {
                     }}</h3>
                 <div class=" w-1/4 h-10 flex items-center justify-between gap-1.5">
                     <div v-if="!showManualTip1 && show2 && isNewUser === 1 && !show3"
-                        class="absolute left-148 top-63 bg-green-500 text-white px-1 py-2 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
+                        class="absolute left-148 top-63 bg-green-600 text-white px-1 py-2 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
                         <!-- Permitir interacción solo en este span -->
                         <span>Selecciona el mes que desee visualizar.</span>
                         <span @click="showManualTip1 = true" class="text-xs mt-1 cursor-pointer z-50 pointer-events-auto">(Haz clic para cerrar)</span>
                     </div>
                     <select
-                        :class="['w-1/2 border-black border-2 rounded-3xl text-lg h-10 px-0.5 font-semibold hover:cursor-pointer', show2 && !show3 && isNewUser === 1? 'border-green-500 border-5' : 'bg-white']"
+                        :class="['w-1/2 border-black border-2 rounded-3xl text-lg h-10 px-0.5 font-semibold hover:cursor-pointer', show2 && !show3 && isNewUser === 1? 'border-green-600 border-5' : 'bg-white']"
                         id="month_select" v-model="month_select">
                         <option v-for="month in MONTHS" :key="month" :value="month">{{ month }}</option>
                     </select>
                     <select
-                        :class="['w-1/2 border-black border-2 rounded-3xl text-lg h-10 px-0.5 font-semibold hover:cursor-pointer', show2 && !show3 && isNewUser === 1 ? 'border-green-500 border-5' : 'bg-white']"
+                        :class="['w-1/2 border-black border-2 rounded-3xl text-lg h-10 px-0.5 font-semibold hover:cursor-pointer', show2 && !show3 && isNewUser === 1 ? 'border-green-600 border-5' : 'bg-white']"
                         id="year_select" v-model="year_select">
                         <option v-for="year in YEARS" :key="year" :value="year">{{ year }}</option>
                         

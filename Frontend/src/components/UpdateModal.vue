@@ -69,7 +69,7 @@
 
 <template>
     <div class=" w-full h-full flex flex-col items-center gap-1.5">
-        <h2 class="text-2xl font-semibold tracking-wide text-white border-b-2 border-green-500 w-4/5 text-center">Actualización de Finanzas</h2>
+        <h2 class="text-2xl font-semibold tracking-wide text-white border-b-2 border-green-600 w-4/5 text-center">Actualización de Finanzas</h2>
         <form @submit="updateFinance" class="flex flex-col w-full h-full items-center gap-2">
             <div class="flex w-full justify-center h-3/10 ">
                 <div class="flex flex-col w-1/2 h-full px-3 justify-center">
@@ -88,7 +88,7 @@
                     <input 
                         type="number" 
                         id="amount_finance" 
-                        class="placeholder:text-white border-b-2 border-r-2 text-white border-gray-400 outline-none h-14 px-3 text-md focus:border-green-600 hover:bg-gray-700 focus:text-white transition-colors" 
+                        class="placeholder:text-white border-b-2 border-r-2 text-white border-gray-600 outline-none h-14 px-3 text-md focus:border-green-600 hover:bg-gray-700 focus:text-white transition-colors" 
                         v-model="amount_finance"
                         placeholder="Ingrese el monto"
                         required 
@@ -119,7 +119,7 @@
                     required 
                 />
             </div>
-            <button class="outline-none w-3/5 h-12 rounded-3xl text-lg tracking-wide bg-green-500 text-white font-semibold hover:bg-black cursor-pointer hover:text-white transition-colors">Actualizar Finanza</button>
+            <button class="outline-none w-3/5 h-12 rounded-3xl text-lg tracking-wide bg-green-600 text-white font-semibold hover:bg-green-700 cursor-pointer hover:text-white transition-colors">Actualizar Finanza</button>
         </form>
     </div>
 </template>

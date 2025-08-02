@@ -103,16 +103,16 @@ function closeManualTooltip4() {
 
 <template>
     <nav
-        class="border-2 border-black w-full h-15 flex items-center justify-between px-10 bg-gray-800 text-gray-100 relative">
+        class=" w-full h-15 flex items-center justify-between px-10 bg-gray-800 text-gray-100 relative">
         <ul class="flex items-center gap-5 w-2/5 h-full justify-evenly">
             <li class="text-md font-semibold tracking-wider relative">
                 <a href="/manual"
-                    :class="[showManualTooltip && newUser ? 'border-5 border-green-500 rounded-lg' : '', 'hover:text-green-400 transition-colors outline-none']">Manual</a>
+                    :class="[showManualTooltip && newUser ? 'border-5 border-green-600 rounded-lg' : '', 'hover:text-green-700 transition-colors outline-none']">Manual</a>
                 <div v-if="showManualTooltip && newUser">
                     <!-- Overlay bloquea la página -->
                     <div class="fixed inset-0  bg-opacity-40 z-50"></div>
                     <div @click="closeManualTooltip"
-                        class="absolute left-0 top-8 bg-green-500 text-white text-sm font-semibold rounded px-3 py-2 shadow-lg z-50 w-56 cursor-pointer">
+                        class="absolute left-0 top-8 bg-green-600 text-white text-sm font-semibold rounded px-3 py-2 shadow-lg z-50 w-56 cursor-pointer">
                         Permite visualizar el manual de GIGI en el caso de que tengas dudas<br>
                         <span class="block text-right text-xs mt-1">(Haz clic para cerrar)</span>
                     </div>
@@ -120,12 +120,12 @@ function closeManualTooltip4() {
             </li>
             <li class="text-md font-semibold tracking-wider relative">
                 <a href="/admin/reportes"
-                    :class="[showManualTooltip2 && newUser ? 'border-5 border-green-500 rounded-lg' : '', 'hover:text-green-400 transition-colors outline-none']">Inicio</a>
+                    :class="[showManualTooltip2 && newUser ? 'border-5 border-green-600 rounded-lg' : '', 'hover:text-green-700 transition-colors outline-none']">Inicio</a>
                 <div v-if="showManualTooltip2 && newUser">
                     <!-- Overlay bloquea la página -->
                     <div class="fixed inset-0  bg-opacity-40 z-50"></div>
                     <div @click="closeManualTooltip2"
-                        class="absolute left-2/3 -translate-x-1/4 top-full mt-2 bg-green-500 text-white text-sm font-semibold rounded px-3 py-2 shadow-lg z-50 w-64 cursor-pointer">
+                        class="absolute left-2/3 -translate-x-1/4 top-full mt-2 bg-green-600 text-white text-sm font-semibold rounded px-3 py-2 shadow-lg z-50 w-64 cursor-pointer">
                         Dashboard principal permite visualizar tu gestión financiera con gráficas<br>
                         <span class="block text-right text-xs mt-1">(Haz clic para cerrar)</span>
                     </div>

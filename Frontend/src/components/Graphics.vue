@@ -103,8 +103,8 @@
 
 <template>
     <div class="w-full h-11/12 flex flex-col gap-2">
-        <div class="border-2 border-gray-500 rounded-2xl w-full h-2/5 flex items-center justify-around py-2">
-            <div class="w-1/2 h-full border-r-2 border-gray-500 flex items-center justify-evenly px-5">
+        <div class="border-2 border-gray-600 rounded-2xl w-full h-2/5 flex items-center justify-around py-2">
+            <div class="w-1/2 h-full border-r-2 border-gray-600 flex items-center justify-evenly px-5">
                 <canvas ref="cicleChart"></canvas>
                 <span> Grafico de Circulos (Ingreso - Saldo Actual)</span>
             </div>
@@ -113,7 +113,7 @@
                 <span> Grafico de Circulos (Gastos - Saldo Actual)</span>
             </div>
         </div>
-        <div class="border-2 border-gray-500 rounded-2xl w-full h-3/5 flex items-center justify-evenly px-20">
+        <div class="border-2 border-gray-600 rounded-2xl w-full h-3/5 flex items-center justify-evenly px-20">
             <canvas ref="barChart"></canvas>
             <p>Grafico de Barras (Ingresos - Gastos)</p>
         </div>

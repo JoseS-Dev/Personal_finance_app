@@ -86,7 +86,7 @@
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
             <label class="text-md tracking-wide" for="Type_finance">Tipo</label>
             <select
-                class="border-2 border-black h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
+                class="border-2 border-gray-600 h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
                 v-model="Type_finance"
                 id="Type_finance"
                 name="Type_finance"
@@ -97,7 +97,7 @@
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
             <label class="text-md tracking-wide" for="description_finance">Descripción</label>
             <input
-                class="placeholder:text-black border-2 border-black h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
+                class="placeholder:text-black border-2 border-gray-600 h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
                 v-model="description_finance"
                 type="text"
                 id="description_finance"
@@ -108,7 +108,7 @@
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
             <label class="text-md tracking-wide" for="amount_finance">Monto</label>
             <input
-                class="placeholder:text-black border-2 border-black h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
+                class="placeholder:text-black border-2 border-gray-600 h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
                 v-model="amount_finance"
                 type="number"
                 id="amount_finance"
@@ -119,7 +119,7 @@
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
             <label class="text-md tracking-wide" for="category_finance">Categoría</label>
             <select
-                class="border-2 border-black h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
+                class="border-2 border-gray-600 h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
                 v-model="category_finance"
                 id="category_finance"
                 name="category_finance"
@@ -130,13 +130,13 @@
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
             <label class="text-md tracking-wide" for="date_finance">Fecha</label>
             <input
-                class="border-2 border-black h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
+                class="border-2 border-gray-600 h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
                 v-model="date_finance"
                 type="date"
                 id="date_finance"
                 name="date_finance"
             />
         </div>
-        <button class="mb-2 mt-1 cursor-pointer w-4/5 border-2 border-black h-10 rounded-3xl text-lg tracking-widest font-bold bg-purple-700 text-white hover:bg-gray-800 transition-colors">Guardar</button>
+        <button class="mb-2 mt-1 cursor-pointer w-4/5  h-10 rounded-3xl text-lg tracking-widest font-bold bg-purple-950 text-white hover:bg-purple-900 transition-colors">Guardar</button>
     </form>
 </template>

@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <main class="border-2 border-black w-full h-screen">
+    <main class="border-2 border-gray-600 w-full h-screen">
         <NavBar/>
         <SectionFn/>
         <SectionTable/>

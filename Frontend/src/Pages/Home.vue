@@ -53,9 +53,9 @@
 
 <template>
     <main class=" w-full h-screen flex items-center justify-center">
-        <form @submit="handleFormSubmit" class="shadow-lg shadow-gray-500 border-2 border-black rounded-2xl w-1/3 h-2/3 flex flex-col items-center py-5 px-10 gap-2.5 bg-gray-700">
+        <form @submit="handleFormSubmit" class="shadow-lg shadow-gray-500  rounded-2xl w-1/3 h-2/3 flex flex-col items-center py-5 px-10 gap-2.5 bg-gray-700">
             <div class="border-b-2 border-gray-400 w-full h-20 flex flex-col justify-center items-center">
-                <h1 class="text-3xl text-white tracking-wider">Bienvenido a <span class="text-green-400 font-semibold">GIGI</span></h1>
+                <h1 class="text-3xl text-white tracking-wider">Bienvenido a <span class="text-green-600 font-semibold">GIGI</span></h1>
                 <p class="text-lg text-gray-300">Tu sistema de gestión financiera</p>
             </div>
             <div class="w-full h-4/5 flex flex-col items-center gap-1.5">
@@ -64,7 +64,7 @@
                     <label class="text-md text-white tracking-wider" for="account_balance_user">Saldo Actual:</label>
                     <input 
                         v-model="account_balance_user"
-                        class="h-12 w-full px-3 outline-none border-b-2 border-r-2 border-green-500 text-white focus:bg-gray-300 focus:text-black transition-colors"
+                        class="h-12 w-full px-3 outline-none border-b-2  border-green-600 text-white focus:bg-gray-300 focus:text-black transition-colors"
                         type="text"
                         id="account_balance_user"
                         name="account_balance_user"
@@ -76,7 +76,7 @@
                     <label class="text-md text-white tracking-wider" for="meta_user">Meta:</label>
                     <input
                         v-model="meta_user"
-                        class="h-12 w-full px-3 outline-none border-b-2 border-r-2 border-green-500 text-white focus:bg-gray-300 focus:text-black transition-colors"
+                        class="h-12 w-full px-3 outline-none border-b-2 border-green-600 text-white focus:bg-gray-300 focus:text-black transition-colors"
                         type="text"
                         id="meta_user"
                         name="meta_user"
@@ -84,7 +84,7 @@
                         required
                     />
                 </div>
-                <button class="border-black border-2 w-4/5 mt-4 h-12 rounded-3xl text-lg tracking-wide bg-green-500 text-white font-semibold hover:bg-black cursor-pointer hover:text-white transition-colors" type="submit">Ingresar</button>
+                <button class="w-4/5 mt-4 h-12 rounded-3xl text-lg tracking-wide bg-green-600 text-white font-semibold hover:bg-green-700 cursor-pointer hover:text-white transition-colors" type="submit">Ingresar</button>
             </div>
         </form>
     </main>
