@@ -37,6 +37,5 @@ const closeWelcome = () => {
             </div>
         </div>
         <SectionGraphic/>
-       
     </main>
 </template>
