@@ -3,13 +3,18 @@ import FormFr from './FormFr.vue';
 import Graphics from './Graphics.vue';
 import { MONTHS, YEARS } from '../Utils';
 import { ref, computed, watch } from 'vue';
+import { useInstructionStore } from '../ContextStore/Instruction';
 const month_select = ref(MONTHS[new Date().getMonth()]);
 const year_select = ref('2025');
 const user = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
 let expense_month = ref(0);
 let income_month = ref(0);
 const isNewUser = Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0;
-const show2 = ref(JSON.parse(localStorage.getItem('show2') || 'false'));
+const instructionStore = useInstructionStore();
+const show2 = ref(instructionStore.tip2);
+watch(() => instructionStore.tip2, (val) => {
+    show2.value = val;
+});
 const show3 = ref(JSON.parse(localStorage.getItem('show3') || 'false'));
 const show4 = ref(JSON.parse(localStorage.getItem('show4') || 'false'));
 const showManualTip1 = ref(false);
@@ -98,7 +103,7 @@ const handleFinanceAdded = (newFinance: any) => {
                     }}</h3>
                 <div class=" w-1/4 h-10 flex items-center justify-between gap-1.5">
                     <div v-if="!showManualTip1 && show2 && isNewUser === 1 && !show3"
-                        class="absolute left-148 top-63 bg-green-600 text-white px-1 py-2 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
+                        class="absolute left-148 top-63 bg-green-500 text-white px-1 py-2 rounded shadow-lg text-sm z-50 flex flex-col items-start gap-1 pointer-events-auto">
                         <!-- Permitir interacción solo en este span -->
                         <span>Selecciona el mes que desee visualizar.</span>
                         <span @click="showManualTip1 = true" class="text-xs mt-1 cursor-pointer z-50 pointer-events-auto">(Haz clic para cerrar)</span>

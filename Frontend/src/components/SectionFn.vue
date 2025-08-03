@@ -5,7 +5,8 @@
     import GoalIcons from '../assets/Icons/GoalIcons.vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import { storeToRefs } from 'pinia';
-    import { onMounted, ref, computed, watch } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
+import { useInstructionStore } from '../ContextStore/Instruction';
     
     const useFinanceStore = StoreFinance();
     const { initializeStore } = useFinanceStore;
@@ -16,7 +17,11 @@
 
     const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
     const bcvPrice = ref(Number(localStorage.getItem('bcvPrice')) || 1);
-    const show1 = ref(JSON.parse(localStorage.getItem('show1') || 'false'));
+    const instructionStore = useInstructionStore();
+    const show1 = ref(instructionStore.tip1);
+    watch(() => instructionStore.tip1, (val) => {
+        show1.value = val;
+    });
     const newUser = Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0;
     const show2 = ref(JSON.parse(localStorage.getItem('show2') || 'false'));
     console.log('New user status:', newUser);
@@ -24,16 +29,13 @@
     window.addEventListener('storage', () => {
         currency.value = localStorage.getItem('selectedCurrency') || 'USD';
         bcvPrice.value = Number(localStorage.getItem('bcvPrice')) || 1;
-        show1.value = JSON.parse(localStorage.getItem('show1') || 'false');
     });
-    watch(show1, (val) => {
-  localStorage.setItem('show1', JSON.stringify(val));
-});
+
     // Función para cerrar el mensaje verde
     const closeInfoMessage = () => {
         show2.value = true;
         localStorage.setItem('show2', JSON.stringify(true));
-        
+        instructionStore.closeTip2();
     };
    
 

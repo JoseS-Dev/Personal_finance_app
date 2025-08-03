@@ -123,7 +123,7 @@ import { ref, onMounted, watch, computed } from 'vue';
             <div v-if="ListFinances.length === 0" class="flex items-center justify-center h-full" :class="{ 'border-2 border-green-600': show4 && !show5 && isNewUser === 1 }">
                 <h3 class="text-2xl font-semibold tracking-wide">No hay Finanzas registradas</h3>
             </div>
-            <table v-if="ListFinances.length > 0" :class="['border-gray-600 border-1 w-full h-auto overflow-y-auto', show4 && !show5 ? 'border-green-600 border-5 border-radius-10 ' : '']">
+            <table v-if="ListFinances.length > 0" :class="['border-gray-600 border-1 w-full h-auto overflow-y-auto', show4 && !show5 && isNewUser === 1? 'border-green-600 border-5 border-radius-10 ' : '']">
                 <thead class="border-gray-600 border-1 w-full">
                     <tr class="w-full h-10 text-lg font-semibold">
                         <th class="border-r-2 border-gray-600">Descripción</th>

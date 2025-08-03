@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import LogoutIcon from '../assets/Icons/LogoutIcon.vue';
 import { ref } from 'vue';
+import { useInstructionStore } from '../ContextStore/Instruction';
+
 
 const showManualTooltip = ref(false);
-const newUser = ref(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new || false);
+const instructionStore = useInstructionStore();
+const newUser = ref(Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0);
 const showManualTooltip2 = ref(false);
 const showManualTooltip3 = ref(false);
 const showManualTooltip4 = ref(false);
@@ -14,6 +17,7 @@ const showCurrencyDropdown = ref(false);
 const selectedCurrency = ref('Moneda');
 const bcvPrice = ref<number|null>(null);
 const changeCurrency = ref(false);
+
 
 const dollar = async () => {
     try {
@@ -30,6 +34,7 @@ const dollar = async () => {
         return null;
     }
 };
+
 
 
 
@@ -55,7 +60,11 @@ if (!localStorage.getItem('selectedCurrency')) {
     const found = currencies.find(c => c.value === stored || c.name === stored);
     
 }
-
+//localStorage.removeItem('show1');
+//localStorage.removeItem('show2');
+//localStorage.removeItem('show3');
+//localStorage.removeItem('show4');
+//localStorage.removeItem('show5');
 function selectCurrency(currency: string) {
     // Buscar el valor correspondiente
     const selected = currencies.find(c => c.name === currency);
@@ -80,7 +89,7 @@ if(newUser.value === 0){
 function closeManualTooltip5() {
     showManualTooltip5.value = false;
     localStorage.setItem('show1', JSON.stringify(true));
-
+    instructionStore.closeTip1();
 }
 function closeManualTooltip() {
     showManualTooltip.value = false;
