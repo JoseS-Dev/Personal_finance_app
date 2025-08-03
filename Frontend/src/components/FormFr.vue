@@ -106,7 +106,7 @@
             />
         </div>
         <div class=" flex flex-col w-full h-18 px-1 gap-0.5">
-            <label class="text-md tracking-wide" for="amount_finance">Monto</label>
+            <label class="text-md tracking-wide" for="amount_finance">Monto en dolares</label>
             <input
                 class="placeholder:text-black border-2 border-gray-600 h-10 w-full rounded-lg px-2 focus:border-gray-700 focus:outline-none transition-colors"
                 v-model="amount_finance"

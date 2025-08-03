@@ -84,7 +84,7 @@
                     />
                 </div>
                 <div class="flex flex-col w-1/2 h-full px-3 justify-center">
-                    <label for="amount_finance" class="text-lg font-semibold text-white">Monto:</label>
+                    <label for="amount_finance" class="text-lg font-semibold text-white">Monto en dolares:</label>
                     <input 
                         type="number" 
                         id="amount_finance" 

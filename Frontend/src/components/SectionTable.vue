@@ -3,13 +3,21 @@
     import ModifiedIcon from '../assets/Icons/ModifiedIcon.vue';
     import ViewFinanceIcon from '../assets/Icons/ViewFinanceIcon.vue';
     import UpdateModal from './UpdateModal.vue';
-    import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import FormFr from './FormFr.vue';
     import sweetalert from 'sweetalert2';
     const userID = JSON.parse(localStorage.getItem('user') || '{}').data.id_user;
     const isNewUser = Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0;
     const ListFinances = ref<any[]>([]);
+    const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
+    const bcvPrice = ref(Number(localStorage.getItem('bcvPrice')) || 1);
+    const currencySymbol = computed(() => currency.value === 'VES' ? 'Bs.' : '$');
+
+    // Computed para mostrar el monto convertido por cada finance
+    const displayFinanceAmount = (amount: number) => {
+        return currency.value === 'VES' ? Number(amount) * bcvPrice.value : Number(amount);
+    };
     const selectedFinance = ref<any>(null);
     const financeStore = StoreFinance();
     const { deleteBalance } = financeStore;
@@ -93,6 +101,7 @@
         }
 
     };
+    
     // Funcion para cerrar la ventana modal
     const handleBackdropClick = (event: MouseEvent) => {
         const modal = document.getElementById('modal') as HTMLDialogElement;
@@ -131,7 +140,7 @@
                         <td class="border-r-2 border-gray-600 text-center">{{ finance.type_finance }}</td>
                         <td class="border-r-2 border-gray-600 text-center">{{ finance.category_finance }}</td>
                         <td class="border-r-2 border-gray-600 text-center">{{ finance.date_finance }}</td>
-                        <td class="border-r-2 border-gray-600 text-center">{{ finance.amount_finance }}</td>
+                        <td class="border-r-2 border-gray-600 text-center">{{ displayFinanceAmount(finance.amount_finance) }} {{ currencySymbol }}</td>
                         <td class="pt-2 flex items-center justify-evenly">
                             <DeleteIcons 
                                 class="cursor-pointer hover:stroke-red-500 hover:p-0.5 transition-all"
