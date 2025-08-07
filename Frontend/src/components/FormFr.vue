@@ -59,6 +59,7 @@
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             });
+            window.location.reload();
              
         }
         catch(error){
@@ -76,7 +77,6 @@
             amount_finance.value = 0;
             category_finance.value = 'Salidas';
             date_finance.value = new Date().toISOString().split('T')[0];
-            window.location.reload();
         }
     }
 </script>

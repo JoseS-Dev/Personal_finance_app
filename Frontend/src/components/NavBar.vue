@@ -1,113 +1,110 @@
 <script setup lang="ts">
-import LogoutIcon from '../assets/Icons/LogoutIcon.vue';
-import { ref } from 'vue';
-import { useInstructionStore } from '../ContextStore/Instruction';
+    import LogoutIcon from '../assets/Icons/LogoutIcon.vue';
+    import { ref } from 'vue';
+    import { useInstructionStore } from '../ContextStore/Instruction';
+
+    const showManualTooltip = ref(false);
+    const instructionStore = useInstructionStore();
+    const newUser = ref(Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0);
+    const showManualTooltip2 = ref(false);
+    const showManualTooltip3 = ref(false);
+    const showManualTooltip4 = ref(false);
+
+    const showManualTooltip5 = ref(false);
+
+    const showCurrencyDropdown = ref(false);
+    const selectedCurrency = ref('Moneda');
+    const bcvPrice = ref<number|null>(null);
+    const changeCurrency = ref(false);
 
 
-const showManualTooltip = ref(false);
-const instructionStore = useInstructionStore();
-const newUser = ref(Number(JSON.parse(localStorage.getItem('user') || '{}').data?.is_new) || 0);
-const showManualTooltip2 = ref(false);
-const showManualTooltip3 = ref(false);
-const showManualTooltip4 = ref(false);
-
-const showManualTooltip5 = ref(false);
-
-const showCurrencyDropdown = ref(false);
-const selectedCurrency = ref('Moneda');
-const bcvPrice = ref<number|null>(null);
-const changeCurrency = ref(false);
-
-
-const dollar = async () => {
-    try {
-        const response = await fetch('https://pydolarve.org/api/v2/dollar');
-        const data = await response.json();
-        if (data && data.monitors && data.monitors.bcv && typeof data.monitors.bcv.price === 'number') {
-            return data.monitors.bcv.price;
-        } else {
-            console.error('Respuesta inesperada de la API:', data);
+    const dollar = async () => {
+        try {
+            const response = await fetch('https://pydolarve.org/api/v2/dollar');
+            const data = await response.json();
+            if (data && data.monitors && data.monitors.bcv && typeof data.monitors.bcv.price === 'number') {
+                return data.monitors.bcv.price;
+            } else {
+                console.error('Respuesta inesperada de la API:', data);
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error al obtener el valor del dólar:', error);
             return null;
         }
-    } catch (e) {
-        console.error('Error obteniendo el precio del dólar:', e);
-        return null;
+    };
+
+
+
+
+    dollar().then(valor => {
+      bcvPrice.value = valor;
+      localStorage.setItem('bcvPrice', JSON.stringify(valor));
+      console.log('Valor del dólar BCV:', bcvPrice.value);
+    });
+
+
+    const currencies = [
+        { name: 'Dólares', value: 'USD' },
+        { name: 'Bolívares', value: 'VES' }
+    ];
+
+    // Establecer moneda predeterminada si no hay ninguna seleccionada
+    if (!localStorage.getItem('selectedCurrency')) {
+        localStorage.setItem('selectedCurrency', 'USD');
+
+    } else {
+        // Sincronizar el valor mostrado con el localStorage
+        const stored = localStorage.getItem('selectedCurrency');
+        const found = currencies.find(c => c.value === stored || c.name === stored);
+        console.log('Stored currency:', found);
+
     }
-};
 
-
-
-
-dollar().then(valor => {
-  bcvPrice.value = valor;
-  localStorage.setItem('bcvPrice', JSON.stringify(valor));
-  console.log('Valor del dólar BCV:', bcvPrice.value);
-});
-
-
-const currencies = [
-    { name: 'Dólares', value: 'USD' },
-    { name: 'Bolívares', value: 'VES' }
-];
-
-// Establecer moneda predeterminada si no hay ninguna seleccionada
-if (!localStorage.getItem('selectedCurrency')) {
-    localStorage.setItem('selectedCurrency', 'USD');
-    
-} else {
-    // Sincronizar el valor mostrado con el localStorage
-    const stored = localStorage.getItem('selectedCurrency');
-    const found = currencies.find(c => c.value === stored || c.name === stored);
-    
-}
-//localStorage.removeItem('show1');
-//localStorage.removeItem('show2');
-//localStorage.removeItem('show3');
-//localStorage.removeItem('show4');
-//localStorage.removeItem('show5');
-function selectCurrency(currency: string) {
-    // Buscar el valor correspondiente
-    const selected = currencies.find(c => c.name === currency);
-    if (selected) {
-        localStorage.setItem('selectedCurrency', selected.value);
+    function selectCurrency(currency: string) {
+        // Buscar el valor correspondiente
+        const selected = currencies.find(c => c.name === currency);
+        if (selected) {
+            localStorage.setItem('selectedCurrency', selected.value);
+        }
+        showCurrencyDropdown.value = false;
+        changeCurrency.value = true;
+        window.location.reload(); // Recarga la página para actualizar la moneda
     }
-    showCurrencyDropdown.value = false;
-    changeCurrency.value = true;
-    window.location.reload(); // Recarga la página para actualizar la moneda
-}
 
-const show1 = JSON.parse(localStorage.getItem('show1') || ' false');
+    const show1 = JSON.parse(localStorage.getItem('show1') || 'false');
 
-if (newUser.value === 1 && show1 === false) {
-    showManualTooltip.value = true;
-}
-if(newUser.value === 0){
-    localStorage.setItem('show1', JSON.stringify(true));
-}
- // Elimina el valor de 'show1' para que no se muestre el tooltip nuevamente
+    if (newUser.value === 1 && show1 === false) {
+        showManualTooltip.value = true;
+    }
+    if(newUser.value === 0){
+        localStorage.setItem('show1', JSON.stringify(true));
+    }
+     // Elimina el valor de 'show1' para que no se muestre el tooltip nuevamente
 
-function closeManualTooltip5() {
-    showManualTooltip5.value = false;
-    localStorage.setItem('show1', JSON.stringify(true));
-    instructionStore.closeTip1();
-}
-function closeManualTooltip() {
-    showManualTooltip.value = false;
-    showManualTooltip2.value = true;
-}
-function closeManualTooltip2() {
-    showManualTooltip2.value = false;
-    showManualTooltip3.value = true;
-}
-function closeManualTooltip3() {
-    showManualTooltip3.value = false;
-    showManualTooltip4.value = true;
-}
-function closeManualTooltip4() {
-    showManualTooltip4.value = false;
-    showManualTooltip5.value = true;
-   
-}
+    function closeManualTooltip5() {
+        showManualTooltip5.value = false;
+        localStorage.setItem('show1', JSON.stringify(true));
+        instructionStore.closeTip1();
+    }
+    function closeManualTooltip() {
+        showManualTooltip.value = false;
+        showManualTooltip2.value = true;
+    }
+    function closeManualTooltip2() {
+        showManualTooltip2.value = false;
+        showManualTooltip3.value = true;
+    }
+    function closeManualTooltip3() {
+        showManualTooltip3.value = false;
+        showManualTooltip4.value = true;
+    }
+    function closeManualTooltip4() {
+        showManualTooltip4.value = false;
+        showManualTooltip5.value = true;
+    
+    }
 </script>
 
 <template>
