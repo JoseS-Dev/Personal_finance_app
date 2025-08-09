@@ -26,6 +26,11 @@ export const middlewareEmail = (req,res,next) => {
     }
 
     transport.sendMail(emailOptions, (error,info) =>{
-        
+        if (error) {
+            console.error('Error sending email:', error);
+            return res.status(500).send('Error sending email');
+        }
+        console.log('Email sent:', info.response);
+        next(); // Procede a procesar el siguiente middleware
     })
 }
