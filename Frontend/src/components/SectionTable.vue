@@ -101,10 +101,27 @@ import { ref, onMounted, watch, computed } from 'vue';
         }
 
     };
-    
+    const openModal2 = (finance: any) => {
+        selectedFinance.value = finance;
+        console.log('Selected finance:', selectedFinance.value);
+        const modal = document.getElementById('modal2') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+        } else {
+            console.error('Modal element not found');
+        }
+    };
+
     // Funcion para cerrar la ventana modal
     const handleBackdropClick = (event: MouseEvent) => {
         const modal = document.getElementById('modal') as HTMLDialogElement;
+        if (event.target === modal) {
+            selectedFinance.value = null;
+            modal.close();
+        }
+    };
+    const handleBackdropClick2 = (event: MouseEvent) => {
+        const modal = document.getElementById('modal2') as HTMLDialogElement;
         if (event.target === modal) {
             selectedFinance.value = null;
             modal.close();
@@ -147,7 +164,7 @@ import { ref, onMounted, watch, computed } from 'vue';
                                 @click="handleFinanceDeleted(finance.description_finance, finance.type_finance, finance.amount_finance, finance.id_finance)"
                             />
                             <ModifiedIcon @click="openModal(finance)" class="cursor-pointer hover:stroke-blue-500 hover:p-0.5 transition-all"/>
-                            <ViewFinanceIcon class="cursor-pointer hover:stroke-green-700 hover:p-0.5 transition-all"/>
+                            <ViewFinanceIcon @click="openModal2(finance)" class="cursor-pointer hover:stroke-green-700 hover:p-0.5 transition-all"/>
                         </td>
                     </tr>
                 </tbody>
@@ -166,14 +183,28 @@ import { ref, onMounted, watch, computed } from 'vue';
     <dialog id="modal" @click="handleBackdropClick" class="w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-600 rounded-2xl">
         <UpdateModal v-if="selectedFinance" :finance="selectedFinance"/>
     </dialog>
+    <dialog id="modal2" @click="handleBackdropClick2" class="w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-600 rounded-2xl">
+        <ViewFinanceModal v-if="selectedFinance" :finance="selectedFinance"/>
+    </dialog>
 </template>
 
 <style scoped>
     dialog[open]{
     animation: openModal 0.5s forwards;
+    animation: openModal2 0.5s forwards; 
     }
     /* Animación para abrir el modal */
     @keyframes openModal {
+        0% {
+        transform: scale(0.9);
+        opacity: 0;
+        }
+        100% {
+        transform: scale(1);
+        opacity: 1;
+        }
+    }
+    @keyframes openModal2 {
         0% {
         transform: scale(0.9);
         opacity: 0;
