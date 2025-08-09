@@ -9,3 +9,24 @@ export function Auth(user){
     )
     return token;
 }
+
+export const middlewareUserToken = (req, res, next) => {
+    const token = req.cookies.AccessToken;
+    if(!token){
+        return res.status(401).json({ message: 'Token no encontrado' });
+    }
+    try{
+        const decode = jwt.verify(token, process.env.DB_JWT_SECRET);
+        if(decode){
+            req.user = decode;
+            next()
+        }
+        else{
+            console.log("El token asignado al usuario no coincide")
+        }
+    }
+    catch(error){
+        res.clearCookie('token');
+        return res.status(403).json({ message: 'Invalid token' });
+    }
+}
