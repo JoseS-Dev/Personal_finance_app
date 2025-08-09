@@ -3,6 +3,7 @@
     import ModifiedIcon from '../assets/Icons/ModifiedIcon.vue';
     import ViewFinanceIcon from '../assets/Icons/ViewFinanceIcon.vue';
     import UpdateModal from './UpdateModal.vue';
+    import ViewModal from './ViewModal.vue';
 import { ref, onMounted, watch, computed } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import FormFr from './FormFr.vue';
@@ -120,10 +121,13 @@ import { ref, onMounted, watch, computed } from 'vue';
             modal.close();
         }
     };
-    const handleBackdropClick2 = (event: MouseEvent) => {
+    
+
+    // Cierra la modal de vista y limpia la selección
+    const closeViewModal = () => {
         const modal = document.getElementById('modal2') as HTMLDialogElement;
-        if (event.target === modal) {
-            selectedFinance.value = null;
+        selectedFinance.value = null;
+        if (modal) {
             modal.close();
         }
     };
@@ -183,8 +187,8 @@ import { ref, onMounted, watch, computed } from 'vue';
     <dialog id="modal" @click="handleBackdropClick" class="w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-600 rounded-2xl">
         <UpdateModal v-if="selectedFinance" :finance="selectedFinance"/>
     </dialog>
-    <dialog id="modal2" @click="handleBackdropClick2" class="w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-600 rounded-2xl">
-        <ViewFinanceModal v-if="selectedFinance" :finance="selectedFinance"/>
+    <dialog id="modal2" @click="closeViewModal" class="w-2/5 h-3/5 absolute left-3/10 top-1/5 p-4 bg-gray-600 rounded-2xl">
+        <ViewModal v-if="selectedFinance" :finance="selectedFinance" />
     </dialog>
 </template>
 
