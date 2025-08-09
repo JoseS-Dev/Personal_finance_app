@@ -1,2 +1,13 @@
-# Personal_finance_app
-This application would be a personal finance management tool, where you can add, update, view, and delete information in a database, along with an interactive and dynamic view for a comfortable and pleasant experience.
+# Bienvenido a GIGI
+### Gestor Financiero Personal
+
+GIGI es un sistema diseñado para ayudar a los usuarios a gestionar sus finanzas personales, permitiendo el registro, seguimiento y análisis de ingresos, gastos, ahorros e inversiones.
+
+
+Sistema Web desarrollada con tecnologías como Vue.js + Node.js con almacenamiento local en una base de datos (MySQL).
+
+Integrantes:
+- Lai Chang 
+- Julio Rodriguez 
+- Freddy Jaimes 
+- Jose Santana 
