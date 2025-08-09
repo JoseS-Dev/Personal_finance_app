@@ -1,3 +1,6 @@
+### Verificación del token
+POST http://localhost:5000/Users/Verify
+
 ### Register a new user
 POST http://localhost:5000/Users
 Content-Type: application/json
