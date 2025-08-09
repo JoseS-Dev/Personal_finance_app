@@ -13,12 +13,7 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas",
-                    data: []
-                });
-            }
+
         }
         catch(error){
             console.error("Error al obtener las finanzas:", error);
@@ -40,12 +35,7 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas para el usuario",
-                    data: []
-                });
-            }
+
         }
         catch(error){
             console.error("Error al obtener las finanzas del usuario:", error);
@@ -89,12 +79,6 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con esa cantidad",
-                    data: []
-                });
-            }
         }
         catch(error){
             console.error("Error al obtener las finanzas por cantidad:", error);
@@ -116,12 +100,7 @@ export class ControllerFinance {
                     data: finances
                 })
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con ese tipo",
-                    data: []
-                });
-            }
+
         }
         catch(error){
             console.error("Error al obtener las finanzas por tipo:", error);
@@ -143,12 +122,6 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con esa categoria",
-                    data: []
-                });
-            }
         }
         catch(error){
             console.error("Error al obtener las finanzas por categoria:", error);
@@ -168,12 +141,6 @@ export class ControllerFinance {
                 return res.status(200).json({
                         message: "Finanzas obtenidas correctamente",
                         data: financeDate
-                });
-            }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con esa categoria",
-                    data: []
                 });
             }
        }
