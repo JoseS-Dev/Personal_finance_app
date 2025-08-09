@@ -13,3 +13,19 @@ const transport = createTransport({
         pass: process.env.PASSWORD_EMAIL
     }
 })
+
+// Coloco el middleware de Gmail 
+export const middlewareEmail = (req,res,next) => {
+    const emailOptions = {
+        from: process.env.EMAIL_USER,
+        to: req.body.email_user,
+        subject: 'Welcome to GIGI',
+        text: 'Tu registro al sistema ha sido existoso',
+        html: `<p>Hola , Tu registro ${req.body.name_user} ha sido existoso </p>
+               <p>Gracias por contar con GIGI para mantener su control de ingreso y gastos!</p>`
+    }
+
+    transport.sendMail(emailOptions, (error,info) =>{
+        
+    })
+}
