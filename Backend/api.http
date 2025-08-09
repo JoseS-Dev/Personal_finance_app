@@ -1,3 +1,6 @@
+### Verificación del token
+POST http://localhost:5000/Users/Verify
+
 ### Register a new user
 POST http://localhost:5000/Users
 Content-Type: application/json
@@ -38,6 +41,9 @@ Content-Type: application/json
 ### Get the all finances 
 GET http://localhost:5000/Finances
 
+### Get finance by ID
+GET http://localhost:5000/Finances/1
+
 ### Get the all finances of a user
 GET http://localhost:5000/Finances/user/1
 
@@ -54,7 +60,7 @@ GET http://localhost:5000/Finances/category/Servicios
 GET http://localhost:5000/Finances/date/2025-07-01/8
 
 ### Create a new finance record
-POST http://localhost:5000/Finances/create/1
+POST http://localhost:5000/Finances/create/3
 Content-Type: application/json
 
 {

@@ -13,12 +13,7 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas",
-                    data: []
-                });
-            }
+
         }
         catch(error){
             console.error("Error al obtener las finanzas:", error);
@@ -40,17 +35,34 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas para el usuario",
-                    data: []
-                });
-            }
+
         }
         catch(error){
             console.error("Error al obtener las finanzas del usuario:", error);
             return res.status(500).json({
                 message: "Error al obtener las finanzas del usuario",
+                error: error.message
+            });
+        }
+    }
+
+    // Obtener finanza por clave primaria
+
+    getFinanceByID = async (req, res) => {
+        const { id_finance } = req.params;
+        try{
+            const finance = await this.ModelsFinance.getFinanceByID({ id_finance });
+            if(finance){
+                return res.status(200).json({
+                    message: "Finanzas obtenidas correctamente",
+                    data: finance
+                });
+            }
+        }
+        catch(error){
+            console.error("Error al obtener las finanzas por cantidad:", error);
+            return res.status(500).json({
+                message: "Error al obtener las finanzas por cantidad",
                 error: error.message
             });
         }
@@ -65,12 +77,6 @@ export class ControllerFinance {
                 return res.status(200).json({
                     message: "Finanzas obtenidas correctamente",
                     data: finances
-                });
-            }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con esa cantidad",
-                    data: []
                 });
             }
         }
@@ -94,12 +100,7 @@ export class ControllerFinance {
                     data: finances
                 })
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con ese tipo",
-                    data: []
-                });
-            }
+
         }
         catch(error){
             console.error("Error al obtener las finanzas por tipo:", error);
@@ -121,12 +122,6 @@ export class ControllerFinance {
                     data: finances
                 });
             }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con esa categoria",
-                    data: []
-                });
-            }
         }
         catch(error){
             console.error("Error al obtener las finanzas por categoria:", error);
@@ -146,12 +141,6 @@ export class ControllerFinance {
                 return res.status(200).json({
                         message: "Finanzas obtenidas correctamente",
                         data: financeDate
-                });
-            }
-            else{
-                return res.status(404).json({
-                    message: "No se encontraron finanzas con esa categoria",
-                    data: []
                 });
             }
        }

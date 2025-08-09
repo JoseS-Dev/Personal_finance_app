@@ -34,7 +34,7 @@ export class ControllerUsers {
             }
             const user = await this.ModelsUser.LoginUser({ user: result.data });
             if(!user) return res.status(401).json({ message: "Correo electrónico o contraseña incorrectos." });
-            return res.cookie("AccessToken", Auth(user), {
+            return res.cookie("token", Auth(user), {
                 httpOnly: true
             }).status(200).json({
                 message: "Usuario logueado correctamente",
@@ -47,11 +47,25 @@ export class ControllerUsers {
         }
     }
 
+    //Token de usuario
+    UserToken = async (req, res) => {
+        if(!req.user){
+            return res.status(401).json({ 
+                message: "No esta autorizado",
+                isAuthorized: false
+            });
+        }
+        return res.status(200).json({
+            message: "Usuario verificado exitosamente",
+            isAuthorized: true
+        });
+    }
+
     // Cerrar Sesión un usuario
     LogoutUser = async (req, res) => {
         try{
             const user = await this.ModelsUser.LogoutUser({ user: req.body });
-            return res.clearCookie("AccessToken").status(200).json({
+            return res.clearCookie("token").status(200).json({
                 message: "Usuario deslogueado correctamente",
                 userLogoutOut: user
             });

@@ -29,6 +29,20 @@ export class ModelsFinance {
         }
     }
 
+    // Obtener una finanza por su ID primario
+    static async getFinanceByID({id_finance}){
+        if(!id_finance) return {error: "ID de finanza no encontrado"};
+        const [ Finance ] = await connection.query("SELECT * FROM register_finance WHERE id_finance = ?", [id_finance]);
+        if (Finance.length > 0){
+            console.log("Finanzas obtenidas correctamente");
+            return Finance;
+        }
+        else{
+            console.log("No hay finanzas registradas para este usuario");
+            return [];
+        }
+    }
+
     // Obtener las finanzas por su cantidad
     static async getByAmount({amount_finance}){
         if(!amount_finance) return { error: "Cantidad no propocionada" };

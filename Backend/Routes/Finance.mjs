@@ -9,6 +9,8 @@ export const RoutesFinance = router;
 // GET
 // Obtener todas las finanzas
 RoutesFinance.get('/', controllerfinance.getAllFinances);
+// Obtener finanzas del usuario
+RoutesFinance.get('/:id_finance', controllerfinance.getFinanceByID);
 // Obtener las finanzas de un usuario
 RoutesFinance.get('/user/:id_user', controllerfinance.getByUserID);
 // Obtener las finanzas por su cantidad
