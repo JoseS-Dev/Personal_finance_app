@@ -51,7 +51,7 @@ export class ControllerFinance {
     getFinanceByID = async (req, res) => {
         const { id_finance } = req.params;
         try{
-            const finance = await this.ModelsFinance.getByFinanceID({ id_finance });
+            const finance = await this.ModelsFinance.getFinanceByID({ id_finance });
             if(finance){
                 return res.status(200).json({
                     message: "Finanzas obtenidas correctamente",

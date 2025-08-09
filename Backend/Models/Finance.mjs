@@ -32,7 +32,7 @@ export class ModelsFinance {
     // Obtener una finanza por su ID primario
     static async getFinanceByID({id_finance}){
         if(!id_finance) return {error: "ID de finanza no encontrado"};
-        const [ Finance ] = await connection.query("SELECT * FROM register_user WHERE id_finance = ?" [id_finance]);
+        const [ Finance ] = await connection.query("SELECT * FROM register_finance WHERE id_finance = ?", [id_finance]);
         if (Finance.length > 0){
             console.log("Finanzas obtenidas correctamente");
             return Finance;
