@@ -47,6 +47,20 @@ export class ControllerUsers {
         }
     }
 
+    //Token de usuario
+    UserToken = async (req, res) => {
+        if(!req.user){
+            return res.status(401).json({ 
+                message: "No esta autorizado",
+                isAuthorized: false
+            });
+        }
+        return res.status(200).json({
+            message: "Usuario verificado exitosamente",
+            isAuthorized: true
+        });
+    }
+
     // Cerrar Sesión un usuario
     LogoutUser = async (req, res) => {
         try{

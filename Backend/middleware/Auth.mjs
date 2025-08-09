@@ -26,7 +26,7 @@ export const middlewareUserToken = (req, res, next) => {
         }
     }
     catch(error){
-        res.clearCookie('token');
-        return res.status(403).json({ message: 'Invalid token' });
+        res.clearCookie('AccessToken');
+        return res.status(403).json({ message: 'Token invalido' });
     }
 }
