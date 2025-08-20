@@ -5,16 +5,13 @@
     import GoalIcons from '../assets/Icons/GoalIcons.vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import { storeToRefs } from 'pinia';
-import { onMounted, ref, computed, watch } from 'vue';
-import { useInstructionStore } from '../ContextStore/Instruction';
+    import { ref, computed, watch } from 'vue';
+    import { useInstructionStore } from '../ContextStore/Instruction';
     
     const useFinanceStore = StoreFinance();
     const { initializeStore } = useFinanceStore;
-    onMounted(() => {
-        initializeStore();
-    })
     const { accountBalance, incomes, expenses, meta } = storeToRefs(useFinanceStore);
-
+    
     const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
     const bcvPrice = ref(Number(localStorage.getItem('bcvPrice')) || 1);
     const instructionStore = useInstructionStore();
@@ -45,6 +42,10 @@ import { useInstructionStore } from '../ContextStore/Instruction';
     const displayMeta = computed(() => currency.value === 'VES' ? Number(meta.value) * bcvPrice.value : Number(meta.value));
     const currencySymbol = computed(() => currency.value === 'VES' ? 'Bs.' : '$');
    
+    // Inicializar el store al montar el componente
+    watch(() => useFinanceStore, () => {
+        initializeStore();
+    }, { immediate: true });
 
 </script>
 

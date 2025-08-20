@@ -49,6 +49,8 @@
             console.error('Invalid date format');
             return;
         }
+        income_month.value = 0;
+        expense_month.value = 0;
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/Finances/date/${formattedDate.value}/${user}`);
             if (!response.ok) throw new Error('Network response was not ok');

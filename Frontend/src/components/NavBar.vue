@@ -112,17 +112,6 @@
         class=" w-full h-15 flex items-center justify-between px-10 bg-gray-800 text-gray-100 relative">
         <ul class="flex items-center gap-5 w-2/5 h-full justify-evenly">
             <li class="text-md font-semibold tracking-wider relative">
-                <!--<a href="/manual"
-                    :class="[showManualTooltip && newUser ? 'border-5 border-green-600 rounded-lg' : '', 'hover:text-green-700 transition-colors outline-none']">Manual</a>
-                <div v-if="showManualTooltip && newUser">
-                   
-                    <div class="fixed inset-0  bg-opacity-40 z-50"></div>
-                    <div @click="closeManualTooltip"
-                        class="absolute left-0 top-8 bg-green-600 text-white text-sm font-semibold rounded px-3 py-2 shadow-lg z-50 w-56 cursor-pointer">
-                        Permite visualizar el manual de GIGI en el caso de que tengas dudas<br>
-                        <span class="block text-right text-xs mt-1">(Haz clic para cerrar)</span>
-                    </div>
-                </div>-->
                 <a href="/manual.pdf" 
                 target="_blank"
                 :class="[showManualTooltip && newUser ? 'border-5 border-green-600 rounded-lg' : '', 'hover:text-green-700 transition-colors outline-none']"
@@ -132,7 +121,7 @@
                 <div v-if="showManualTooltip && newUser">
                     <!-- Overlay bloquea la página -->
                     <div class="fixed inset-0 bg-opacity-40 z-50"></div>
-                    <div @click="showManualTooltip = false"
+                    <div @click="closeManualTooltip"
                         class="absolute left-0 top-8 bg-green-600 text-white text-sm font-semibold rounded px-3 py-2 shadow-lg z-50 w-56 cursor-pointer">
                         Permite visualizar el manual de GIGI en el caso de que tengas dudas<br>
                         <span class="block text-right text-xs mt-1">(Haz clic para cerrar)</span>

@@ -23,6 +23,7 @@
     "dotenv": "^16.5.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.1",
+    "nodemailer": "^7.0.5",
     "zod": "^3.25.67"
   }
 }
