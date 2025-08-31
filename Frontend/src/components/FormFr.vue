@@ -60,7 +60,6 @@
                 confirmButtonText: 'Aceptar'
             });
             window.location.reload();
-             
         }
         catch(error){
             console.error('Error al registrar la finanza:', error);

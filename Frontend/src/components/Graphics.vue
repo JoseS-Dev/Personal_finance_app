@@ -88,11 +88,11 @@
         }
     }
     
-    
     onMounted(() => {
         createCharts();
     });
-
+    
+    
     // Watch for changes in incomes and expenses to update the charts
     watch([() => incomes, () => expenses, () => accountBalance], () => {
         createCharts();

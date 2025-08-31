@@ -149,7 +149,7 @@ export class ModelsFinance {
     }
 
     // Actualizar una finanza por su ID
-    static async updateFinanceByID({ id_finance,finance }){
+    static async updateFinanceByID({ id_finance, finance }){
         if(!id_finance || !finance) return { error: "ID de finanza o finanza no proporcionados" };
         // Se actualiza la finanza en la base de datos
         const { description_finance, date_finance, type_finance, category_finance, amount_finance } = finance;
@@ -159,7 +159,10 @@ export class ModelsFinance {
         )
         if(financeUpdated.affectedRows > 0){
             console.log("Finanza actualizada correctamente");
-            return financeUpdated;
+            return {
+                id_finance,
+                ...finance
+            };
         }
         else{
             console.log("Error al actualizar la finanza o no se encontró la finanza");

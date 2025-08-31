@@ -5,11 +5,12 @@
     import GoalIcons from '../assets/Icons/GoalIcons.vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import { storeToRefs } from 'pinia';
-    import { ref, computed, watch } from 'vue';
+    import { ref, computed, watch, onMounted } from 'vue';
     import { useInstructionStore } from '../ContextStore/Instruction';
     
     const useFinanceStore = StoreFinance();
     const { initializeStore } = useFinanceStore;
+
     const { accountBalance, incomes, expenses, meta } = storeToRefs(useFinanceStore);
     
     const currency = ref(localStorage.getItem('selectedCurrency') || 'USD');
@@ -27,6 +28,7 @@
         currency.value = localStorage.getItem('selectedCurrency') || 'USD';
         bcvPrice.value = Number(localStorage.getItem('bcvPrice')) || 1;
     });
+    console.log(show1.value)
 
     // Función para cerrar el mensaje verde
     const closeInfoMessage = () => {
@@ -42,6 +44,10 @@
     const displayMeta = computed(() => currency.value === 'VES' ? Number(meta.value) * bcvPrice.value : Number(meta.value));
     const currencySymbol = computed(() => currency.value === 'VES' ? 'Bs.' : '$');
    
+    onMounted(() => {
+        initializeStore();
+    })
+    
     // Inicializar el store al montar el componente
     watch(() => useFinanceStore, () => {
         initializeStore();

@@ -52,21 +52,8 @@ export const StoreFinance = defineStore('financeStore', () => {
             const isNewUser = storeUser.data?.is_new || false;
             
             if (isNewUser) {
-                // Usuario nuevo - inicializar en 0
-                incomes.value = 0;
-                expenses.value = 0;
-                accountBalance.value = 0;
-                meta.value = 0;
-                
-                // Guardar los valores iniciales para este usuario
-                localStorage.setItem(`incomes_${currentUserId}`, '0');
-                localStorage.setItem(`expenses_${currentUserId}`, '0');
-                
-                // Marcar como usuario no nuevo para futuras visitas
-                if (storeUser.data) {
-                    storeUser.data.is_new = 0;
-                    localStorage.setItem('user', JSON.stringify(storeUser));
-                }
+                incomes.value = JSON.parse(localStorage.getItem(`incomes_${currentUserId}`) || '0');
+                expenses.value = JSON.parse(localStorage.getItem(`expenses_${currentUserId}`) || '0');
             } else {
                 // Usuario existente - cargar sus datos
                 incomes.value = JSON.parse(localStorage.getItem(`incomes_${currentUserId}`) || '0');
@@ -186,6 +173,8 @@ export const StoreFinance = defineStore('financeStore', () => {
             console.error('Error al guardar el balance:', error);
         }
     }
+
+    
     
     // Function to reset the store
     const resetStore = () => {

@@ -20,10 +20,10 @@
 
     const dollar = async () => {
         try {
-            const response = await fetch('https://pydolarve.org/api/v2/dollar');
+            const response = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
             const data = await response.json();
-            if (data && data.monitors && data.monitors.bcv && typeof data.monitors.bcv.price === 'number') {
-                return data.monitors.bcv.price;
+            if (data && typeof data.promedio === 'number') {
+                return data.promedio;
             } else {
                 console.error('Respuesta inesperada de la API:', data);
                 return null;

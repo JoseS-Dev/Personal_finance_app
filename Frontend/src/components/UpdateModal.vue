@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ref, defineProps, watch} from 'vue';
-    import {TYPES, CATEGORYS} from '../Utils'
+    import {TYPES, CATEGORYS} from '../Utils';
     const props = defineProps<{
         finance: {
             id_finance: number;
@@ -48,8 +48,10 @@
                 body: JSON.stringify(formData)
             });
             if(response.ok){
-                await response.json();
+                const result =await response.json();
+                localStorage.setItem('finances', JSON.stringify(result.data));
                 alert('Finanza actualizada exitosamente');
+
             }
         }
         catch (error) {

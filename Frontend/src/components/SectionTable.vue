@@ -4,7 +4,7 @@
     import ViewFinanceIcon from '../assets/Icons/ViewFinanceIcon.vue';
     import UpdateModal from './UpdateModal.vue';
     import ViewModal from './ViewModal.vue';
-import { ref, onMounted, watch, computed } from 'vue';
+    import { ref, onMounted, watch, computed } from 'vue';
     import { StoreFinance } from '../ContextStore/financeStore';
     import FormFr from './FormFr.vue';
     import sweetalert from 'sweetalert2';
