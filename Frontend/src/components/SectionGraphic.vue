@@ -64,10 +64,7 @@
                     expense_month.value += finance.amount_finance;
                 }
             });
-            if (parseInt(year_select.value) < 2025) {
-                income_month.value = 0;
-                expense_month.value = 0;
-            }
+            
             console.log('Expenses for the month:', expense_month);
             console.log('Income for the month:', income_month);
         }

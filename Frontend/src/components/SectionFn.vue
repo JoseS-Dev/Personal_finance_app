@@ -61,28 +61,28 @@
             <AccountAtIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Cuenta Actual</span>
-                <span class="text-2xl font-bold">{{ displayAccountBalance }} {{ currencySymbol }}</span>
+                <span class="text-2xl font-bold">{{ Math.round(displayAccountBalance) }} {{ currencySymbol }}</span>
             </div>
         </article>
         <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-blue-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <IncomeIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Ingresos</span>
-                <span class="text-2xl  font-bold">{{ displayIncomes }} {{ currencySymbol }}</span>
+                <span class="text-2xl  font-bold">{{ Math.round(displayIncomes) }} {{ currencySymbol }}</span>
             </div>
         </article>
         <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-red-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <ExpenseIcon/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Gastos</span>
-                <span class="text-2xl text-red-600 font-bold">{{ displayExpenses }} {{ currencySymbol }}</span>
+                <span class="text-2xl text-red-600 font-bold">{{ Math.round(displayExpenses) }} {{ currencySymbol }}</span>
             </div>
         </article>
         <article :class="['cursor-pointer flex flex-col items-center justify-center border-1 border-gray-600 rounded-2xl w-1/5 h-3/4 gap-1 hover:bg-orange-400 hover:text-white transition-colors', show1 && !show2 && newUser === 1 ? 'article-blur' : '']">
             <GoalIcons/>
             <div class="flex flex-col items-center">
                 <span class="text-md">Meta</span>
-                <span class="text-2xl text-orange-600 font-bold">{{ displayMeta }} {{ currencySymbol }}</span>
+                <span class="text-2xl text-orange-600 font-bold">{{ Math.round(displayMeta) }} {{ currencySymbol }}</span>
             </div>
         </article>
     </section>
